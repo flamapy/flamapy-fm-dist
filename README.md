@@ -13,6 +13,7 @@
   </p>
 </div>
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 FLAMAPY API provides an abstraction layer over FLAMA, so that it can be used from any environment through requests to this API. In this way, we eliminate project dependencies and standardize a way to consume it for other applications.
