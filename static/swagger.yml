@@ -1,0 +1,56 @@
+openapi: 3.0.0
+info:
+  title: FLAMAPY API
+  description: A simple Flask API for FLAMAPY
+  version: "1.0"
+servers:
+  - url: http://localhost:5000/
+paths:
+  /api/v1:
+    get:
+      summary: Returns a simple message
+      description: Returns a simple message indicating that the FLAMAPY API is running and ready to use.
+      tags:
+        - Healthcheck
+      responses:
+        "200":
+          description: A successful response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: FLAMAPY API - V1 - Running and ready to use!
+  /api/v1/validate/model:
+    post:
+      summary: Validates a model file
+      description: Validates an UVL model file and returns a result indicating if it is valid or not.
+      tags:
+        - Validator
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: A successful response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Model is valid
+        "404":
+          description: File not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Model is not valid

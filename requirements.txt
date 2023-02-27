@@ -2,3 +2,5 @@ Flask
 flamapy
 flamapy-fm 
 flamapy-sat
+flasgger
+flask-swagger-ui
