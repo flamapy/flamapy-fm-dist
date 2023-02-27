@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from validator.check import model_checker, product_checker
 
 app = Flask(__name__)
@@ -22,7 +22,7 @@ def check_model():
         if (result):
             return 'Model is valid'
         else:
-            return 'Model is invalid'
+            return jsonify(error='File is not valid'), 404
     else:
         return 'No file uploaded'
 
