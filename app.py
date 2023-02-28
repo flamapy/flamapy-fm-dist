@@ -6,7 +6,7 @@ from routes.validator_routes import validator_bp
 
 # Creating the app and configuring it
 app = Flask(__name__)
-app.config['BASE_ROUTE'] = '/api/v1'
+app.config['API_BASE_URL'] = '/api/v1'
 
 # Swagger UI
 SWAGGER_URL = '/api/v1/docs'
@@ -24,6 +24,10 @@ app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 app.register_blueprint(validator_bp)
 
 
-@app.route(app.config['BASE_ROUTE'], methods=['GET'])
+@app.route(app.config['API_BASE_URL'], methods=['GET'])
 def hello_world():
     return 'FLAMAPY API - V1 - Running and ready to use!'
+
+
+if __name__ == '__main__':
+    app.run()
