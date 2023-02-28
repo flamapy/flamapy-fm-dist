@@ -5,6 +5,7 @@ info:
   version: "1.0"
 servers:
   - url: http://localhost:5000/
+  - url: https://flamapy-api.onrender.com/
 paths:
   /api/v1:
     get:
