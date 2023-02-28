@@ -1,6 +1,8 @@
+wheel
 Flask
 flamapy
-flamapy-fm 
+flamapy-fm
 flamapy-sat
 flasgger
 flask-swagger-ui
+pytest
