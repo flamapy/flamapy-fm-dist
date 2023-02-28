@@ -2,7 +2,7 @@ import sys
 import pytest
 import json
 
-sys.path.append("..")
+sys.path.append(".")
 from app import app
 
 def test_hello_world():

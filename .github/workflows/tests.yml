@@ -27,11 +27,8 @@ jobs:
           python-version: 3.9
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Access test directory
-        run: cd ./tests
-        working-directory: ./tests
       - name: Run unit tests
-        run: pytest test_units.py
+        run: pytest ./tests/test_units.py
 
   endpoints:
     name: Endpoint Testing
@@ -45,8 +42,5 @@ jobs:
           python-version: 3.9
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Access test directory
-        run: cd ./tests
-        working-directory: ./tests
       - name: Run endpoint tests
-        run: pytest endpoints.py
+        run: pytest ./tests/test_endpoints.py
