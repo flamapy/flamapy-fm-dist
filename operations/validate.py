@@ -18,7 +18,22 @@ def model_validator(model):
         return dm.use_operation_from_file('Valid', model)
     except:
         return False
-    
+
 
 def product_validator(model, product):
-    return 'API operation for checking product'
+    """
+    This operation is used to validate a product:
+    It returns True if the product is valid, False otherwise.
+    If the model does not follow the UVL specification, an
+    exception is raised and the operation returns False.
+    """
+
+    dm = DiscoverMetamodels()
+
+    # Try to use the Valid operation, which returns True if the product is valid
+
+    return dm.use_operation_from_file('ValidProduct', model, product)
+
+
+print(product_validator("./operations/models/valid_model.uvl",
+      "./operations/products/valid_product.csv"))
