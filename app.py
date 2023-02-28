@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.config['API_BASE_URL'] = '/api/v1'
 
 # Swagger UI
-SWAGGER_URL = ''
+SWAGGER_URL = '/docs'
 API_URL = '/static/swagger.yml'
 SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
     SWAGGER_URL,
@@ -29,10 +29,9 @@ app.register_blueprint(validate_bp)
 app.register_blueprint(count_bp)
 app.register_blueprint(find_bp)
 
-
-@app.route(app.config['API_BASE_URL'], methods=['GET'])
+@app.route("/", methods=['GET'])
 def hello_world():
-    return 'FLAMAPY API - V1 - Running and ready to use!'
+    return 'FLAMAPY API - V1 - Running and ready to use! - Docs: /docs'
 
 
 if __name__ == '__main__':
