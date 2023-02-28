@@ -3,7 +3,9 @@ from flask_swagger_ui import get_swaggerui_blueprint
 
 # Importing routes
 from routes.info_routes import info_bp
-from routes.validator_routes import validator_bp
+from routes.validate_routes import validate_bp
+from routes.count_routes import count_bp
+from routes.find_routes import find_bp
 
 # Creating the app and configuring it
 app = Flask(__name__)
@@ -23,7 +25,9 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 # Adding blueprints
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 app.register_blueprint(info_bp)
-app.register_blueprint(validator_bp)
+app.register_blueprint(validate_bp)
+app.register_blueprint(count_bp)
+app.register_blueprint(find_bp)
 
 
 @app.route(app.config['API_BASE_URL'], methods=['GET'])
