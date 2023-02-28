@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.config['API_BASE_URL'] = '/api/v1'
 
 # Swagger UI
-SWAGGER_URL = '/api/v1/docs'
+SWAGGER_URL = ''
 API_URL = '/static/swagger.yml'
 SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
     SWAGGER_URL,
