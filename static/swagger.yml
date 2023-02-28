@@ -169,7 +169,80 @@ paths:
                 properties:
                   error:
                     type: string
-
+  /api/v1/count/valid-products:
+    post:
+      summary: Count valid products from uploaded model file.
+      tags:
+        - Count
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: The number of valid products found in the model file.
+                    example: 10
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: An error message indicating no valid products were found in the model file.
+                    example: No valid products found
+  /api/v1/count/leafs:
+    post:
+      summary: Count leafs in a model file
+      tags:
+        - Count
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: The number of leafs found in the file
+        '404':
+          description: No leafs found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
   /api/v1/validate/model:
     post:
       summary: Validates a model file
