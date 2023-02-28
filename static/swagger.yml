@@ -46,7 +46,7 @@ paths:
                   error:
                     type: string
                     example: No plugins found
-  /api/v1/info/{plugin}/operations/:
+  /api/v1/info/{plugin}/operations:
     get:
       summary: Returns a list of available operations for a given plugin
       description: Returns a list of available operations that can be performed with the specified plugin.
