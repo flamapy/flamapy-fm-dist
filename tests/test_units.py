@@ -2,7 +2,7 @@ import sys
 import warnings
 import pytest
 
-sys.path.append("..")
+sys.path.append(".")
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 from app import app
@@ -36,7 +36,7 @@ def test_get_operations():
 
 def test_model_validator_valid_model():
     # Arrange
-    valid_model = "../operations/models/valid_model.uvl"
+    valid_model = "./operations/models/valid_model.uvl"
 
     # Act
     result = model_validator(valid_model)
@@ -47,7 +47,7 @@ def test_model_validator_valid_model():
 
 def test_model_validator_invalid_model():
     # Arrange
-    invalid_model = "../operations/products/valid_product.csv"
+    invalid_model = "./operations/products/valid_product.csv"
 
     # Act
     result = model_validator(invalid_model)
@@ -80,7 +80,7 @@ def test_model_validator_invalid_model():
 
 def test_count_valid_products():
     # Arrange
-    valid_model = "../operations/models/valid_model.uvl"
+    valid_model = "./operations/models/valid_model.uvl"
 
     # Act
     result = count_valid_products(valid_model)
@@ -91,7 +91,7 @@ def test_count_valid_products():
 
 def test_count_leafs():
     # Arrange
-    valid_model = "../operations/models/valid_model.uvl"
+    valid_model = "./operations/models/valid_model.uvl"
 
     # Act
     result = count_leafs(valid_model)
@@ -102,7 +102,7 @@ def test_count_leafs():
 
 def test_find_valid_products():
     # Arrange
-    valid_model = "../operations/models/valid_model.uvl"
+    valid_model = "./operations/models/valid_model.uvl"
 
     # Act
     result = find_valid_products(valid_model)
@@ -113,7 +113,7 @@ def test_find_valid_products():
 
 def test_find_core_features():
     # Arrange
-    valid_model = "../operations/models/valid_model.uvl"
+    valid_model = "./operations/models/valid_model.uvl"
     core_features = ["eCommerce", "Server", "Web", "Catalog", "Search",
                      "Shopping", "Security",  "Cart", "Payment", "PHP", "Storage", "v74"]
     # Act
