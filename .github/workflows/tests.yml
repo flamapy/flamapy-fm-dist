@@ -28,8 +28,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Access test directory
-        run: cd tests
-        working-directory: tests
+        run: cd ./tests
+        working-directory: ./tests
       - name: Run unit tests
         run: pytest test_units.py
 
@@ -45,14 +45,8 @@ jobs:
           python-version: 3.9
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Start Flask app
-        run: python app.py &
-      - name: Wait for app to start
-        run: sleep 5
       - name: Access test directory
-        run: cd tests
-        working-directory: tests
+        run: cd ./tests
+        working-directory: ./tests
       - name: Run endpoint tests
         run: pytest endpoints.py
-      - name: Stop Flask app
-        run: pkill -f "python app.py" || true
