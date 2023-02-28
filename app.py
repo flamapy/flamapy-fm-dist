@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from flask_swagger_ui import get_swaggerui_blueprint
 
 # Importing routes
+from routes.info_routes import info_bp
 from routes.validator_routes import validator_bp
 
 # Creating the app and configuring it
@@ -21,6 +22,7 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 
 # Adding blueprints
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
+app.register_blueprint(info_bp)
 app.register_blueprint(validator_bp)
 
 

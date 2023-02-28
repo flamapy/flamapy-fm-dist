@@ -33,7 +33,3 @@ def product_validator(model, product):
     # Try to use the Valid operation, which returns True if the product is valid
 
     return dm.use_operation_from_file('ValidProduct', model, product)
-
-
-print(product_validator("./operations/models/valid_model.uvl",
-      "./operations/products/valid_product.csv"))
