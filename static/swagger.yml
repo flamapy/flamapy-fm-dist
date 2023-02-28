@@ -20,6 +20,229 @@ paths:
               schema:
                 type: string
                 example: FLAMAPY API - V1 - Running and ready to use!
+  /api/v1/info/plugins:
+    get:
+      summary: Returns a list of available plugins
+      description: Returns a list of available plugins that can be used with the FLAMAPY API.
+      tags:
+        - Info
+      responses:
+        "200":
+          description: A successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["plugin1", "plugin2", "plugin3"]
+        "404":
+          description: No plugins found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No plugins found
+  /api/v1/info/{plugin}/operations/:
+    get:
+      summary: Returns a list of available operations for a given plugin
+      description: Returns a list of available operations that can be performed with the specified plugin.
+      tags:
+        - Info
+      parameters:
+        - in: path
+          name: plugin
+          description: The name of the plugin for which to retrieve operations
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                example: ["operation1", "operation2", "operation3"]
+        "404":
+          description: No operations found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: No operations found
+  /api/v1/find/valid-products:
+    post:
+      summary: Find valid products
+      tags:
+        - Find
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid_products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_id:
+                          type: integer
+                        product_name:
+                          type: string
+                        product_category:
+                          type: string
+                        product_price:
+                          type: number
+        '404':
+          description: No valid products found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/v1/find/core-features:
+    post:
+      summary: Find core features
+      tags:
+        - Find
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  core_features:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        feature_id:
+                          type: integer
+                        feature_name:
+                          type: string
+                        feature_type:
+                          type: string
+                        feature_description:
+                          type: string
+        '404':
+          description: No core features found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/v1/count/valid-products:
+    post:
+      summary: Count valid products from uploaded model file.
+      tags:
+        - Count
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: The number of valid products found in the model file.
+                    example: 10
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: An error message indicating no valid products were found in the model file.
+                    example: No valid products found
+  /api/v1/count/leafs:
+    post:
+      summary: Count leafs in a model file
+      tags:
+        - Count
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: The number of leafs found in the file
+        '404':
+          description: No leafs found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message
   /api/v1/validate/model:
     post:
       summary: Validates a model file
@@ -54,3 +277,4 @@ paths:
                   error:
                     type: string
                     example: Model is not valid
+  
