@@ -2,14 +2,14 @@ import os
 from flask import Blueprint, request, jsonify
 from operations.validate import model_validator, product_validator
 
-validator_bp = Blueprint('validator_bp', __name__, url_prefix='/api/v1/validate')
+validate_bp = Blueprint('validate_bp', __name__, url_prefix='/api/v1/validate')
 
 MODEL_FOLDER = './operations/models/'
 PRODUCT_FOLDER = './operations/products/'
 
 ALLOWED_EXTENSIONS = {'uvl'}
 
-@validator_bp.route('/model', methods=['POST'])
+@validate_bp.route('/model', methods=['POST'])
 def check_model():
     # Get files
     uploaded_model = request.files['model']
@@ -37,7 +37,7 @@ def check_model():
         return 'No file uploaded'
 
 
-@validator_bp.route('/product', methods=['POST'])
+@validate_bp.route('/product', methods=['POST'])
 def check_product():
     # Get files
     uploaded_model = request.files['model']
