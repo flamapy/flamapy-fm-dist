@@ -46,4 +46,4 @@ def configuration_validator(model, configuration):
 
     # Try to use the Valid operation, which returns True if the configuration is valid
 
-    return dm.use_operation_from_file('ValidConfiguration', file = model, plugin_name = 'pysat_metamodel', configuration_file=configuration)
+    return dm.use_operation_from_file(operation_name='ValidConfiguration', file = model, plugin_name = 'pysat_metamodel', configuration_file=configuration)
