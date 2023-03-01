@@ -21,6 +21,7 @@ paths:
               schema:
                 type: string
                 example: FLAMAPY API - V1 - Running and ready to use!
+  
   /api/v1/info/plugins:
     get:
       summary: Returns a list of available plugins
@@ -80,6 +81,7 @@ paths:
                   error:
                     type: string
                     example: No operations found
+  
   /api/v1/find/valid-products:
     post:
       summary: Find valid products
@@ -170,6 +172,142 @@ paths:
                 properties:
                   error:
                     type: string
+  /api/v1/find/dead-features:
+    post:
+      summary: Find dead features
+      tags:
+        - Find
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  core_features:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        feature_id:
+                          type: integer
+                        feature_name:
+                          type: string
+                        feature_type:
+                          type: string
+                        feature_description:
+                          type: string
+        '404':
+          description: No dead features found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/v1/find/max-depth:
+    post:
+      summary: Find max depth of a tree
+      tags:
+        - Find
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  core_features:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        feature_id:
+                          type: integer
+                        feature_name:
+                          type: string
+                        feature_type:
+                          type: string
+                        feature_description:
+                          type: string
+        '404':
+          description: No max depth found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/v1/find/atomic-sets:
+    post:
+      summary: Find the atomic sets of a model
+      tags:
+        - Find
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  core_features:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        feature_id:
+                          type: integer
+                        feature_name:
+                          type: string
+                        feature_type:
+                          type: string
+                        feature_description:
+                          type: string
+        '404':
+          description: No atomic sets found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  
   /api/v1/count/valid-products:
     post:
       summary: Count valid products from uploaded model file.
@@ -244,12 +382,13 @@ paths:
                   error:
                     type: string
                     description: Error message
+  
   /api/v1/validate/model:
     post:
       summary: Validates a model file
       description: Validates an UVL model file and returns a result indicating if it is valid or not.
       tags:
-        - Validator
+        - Validate
       requestBody:
         required: true
         content:
