@@ -33,3 +33,17 @@ def product_validator(model, product):
     # Try to use the Valid operation, which returns True if the product is valid
 
     return dm.use_operation_from_file('ValidProduct', model, product)
+
+def configuration_validator(model, configuration):
+    """
+    This operation is used to validate a configuration:
+    It returns True if the configuration is valid, False otherwise.
+    If the model does not follow the UVL specification, an
+    exception is raised and the operation returns False.
+    """
+
+    dm = DiscoverMetamodels()
+
+    # Try to use the Valid operation, which returns True if the configuration is valid
+
+    return dm.use_operation_from_file('ValidConfiguration', file = model, plugin_name = 'pysat_metamodel', configuration_file=configuration)
