@@ -16,12 +16,13 @@ def info_plugins():
         return jsonify(error='No plugins found'), 404
 
 @info_bp.route('/<string:plugin>/operations/', methods=['GET'])
-def info_operations(plugin):
+def info_operations(plugin: str):
     # Get operations
     operations = get_operations(plugin)
 
     # Return result
-    if (operations):
-        return jsonify(operations)
+    if operations:
+        return jsonify(operations), 200
     else:
         return jsonify(error='No operations found'), 404
+
