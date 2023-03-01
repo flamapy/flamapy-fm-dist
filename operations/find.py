@@ -59,8 +59,6 @@ def find_dead_features(model):
     except Exception as e:
         return False
 
-print(find_dead_features("./operations/models/valid_model.uvl"))
-
 def find_max_depth(model):
     """ 
     This operation is used to find the max depth of the tree in a model:
