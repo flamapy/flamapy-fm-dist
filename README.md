@@ -98,9 +98,9 @@ Once you have successfully configured your local development environment, in the
 
 ```sh
 Info: general information about components, such as plugins and operations.
-Count: Count something in a model
-Find: Find something in a model
-Validate: validate something in a model
+Count: Count something given a model
+Find: Find something given a model
+Validate: validate something given a model
 ```
 
 If these actions represent the functionality you want to add, write the code inside the file. Otherwise, create a new .py file with the verb of the action to be performed. (Example: I want to create and endpoint for modifying the UVL, then, I must create a modify.py file. In this file, create a generic and parameterized method that provides the new functionality. 
