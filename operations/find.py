@@ -56,8 +56,10 @@ def find_dead_features(model):
         for feature in features:
             dead_features.append(feature.name)
         return dead_features
-    except:
+    except Exception as e:
         return False
+
+print(find_dead_features("./operations/models/valid_model.uvl"))
 
 def find_max_depth(model):
     """ 
