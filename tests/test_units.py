@@ -36,7 +36,7 @@ def test_get_operations():
 
 def test_model_validator_valid_model():
     # Arrange
-    valid_model = "./operations/models/valid_model.uvl"
+    valid_model = "./resources/models/valid_model.uvl"
 
     # Act
     result = model_validator(valid_model)
@@ -47,7 +47,7 @@ def test_model_validator_valid_model():
 
 def test_model_validator_invalid_model():
     # Arrange
-    invalid_model = "./operations/products/valid_product.csv"
+    invalid_model = "./resources/products/valid_product.csv"
 
     # Act
     result = model_validator(invalid_model)
@@ -57,8 +57,8 @@ def test_model_validator_invalid_model():
 
 def test_product_validator_valid_product():
     # Arrange
-    valid_model = "./operations/models/valid_model.uvl"
-    valid_product = "./operations/products/valid_product.csv"
+    valid_model = "./resources/models/valid_model.uvl"
+    valid_product = "./resources/products/valid_product.csv"
 
     # Act
     result = product_validator(valid_model, valid_product)
@@ -68,8 +68,8 @@ def test_product_validator_valid_product():
 
 def test_product_validator_invalid_product():
     # Arrange
-    valid_model = "./operations/models/valid_model.uvl"
-    invalid_product = "./operations/products/invalid_product.csv"
+    valid_model = "./resources/models/valid_model.uvl"
+    invalid_product = "./resources/products/invalid_product.csv"
 
     # Act
     result = product_validator(valid_model, invalid_product)
@@ -79,8 +79,8 @@ def test_product_validator_invalid_product():
 
 def test_configuration_validator_valid_configuration():
     # Arrange
-    valid_model = "./operations/models/valid_model.uvl"
-    valid_configuration = "./operations/configurations/valid_configuration.csv"
+    valid_model = "./resources/models/valid_model.uvl"
+    valid_configuration = "./resources/configurations/valid_configuration.csv"
 
     # Act
     result = configuration_validator(valid_model, valid_configuration)
@@ -91,7 +91,7 @@ def test_configuration_validator_valid_configuration():
 
 def test_count_valid_products():
     # Arrange
-    valid_model = "./operations/models/valid_model.uvl"
+    valid_model = "./resources/models/valid_model.uvl"
 
     # Act
     result = count_valid_products(valid_model)
@@ -102,7 +102,7 @@ def test_count_valid_products():
 
 def test_count_leafs():
     # Arrange
-    valid_model = "./operations/models/valid_model.uvl"
+    valid_model = "./resources/models/valid_model.uvl"
 
     # Act
     result = count_leafs(valid_model)
@@ -113,7 +113,7 @@ def test_count_leafs():
 
 def test_find_valid_products():
     # Arrange
-    valid_model = "./operations/models/valid_model.uvl"
+    valid_model = "./resources/models/valid_model.uvl"
 
     # Act
     result = find_valid_products(valid_model)
@@ -124,7 +124,7 @@ def test_find_valid_products():
 
 def test_find_core_features():
     # Arrange
-    valid_model = "./operations/models/valid_model.uvl"
+    valid_model = "./resources/models/valid_model.uvl"
     core_features = ["eCommerce", "Server", "Web", "Catalog", "Search",
                      "Shopping", "Security",  "Cart", "Payment", "PHP", "Storage", "v74"]
     # Act

@@ -4,8 +4,8 @@ from operations.validate import model_validator, product_validator
 
 validate_bp = Blueprint('validate_bp', __name__, url_prefix='/api/v1/validate')
 
-MODEL_FOLDER = './operations/models/'
-PRODUCT_FOLDER = './operations/products/'
+MODEL_FOLDER = './resources/models/'
+PRODUCT_FOLDER = './resources/products/'
 
 ALLOWED_EXTENSIONS = {'uvl'}
 

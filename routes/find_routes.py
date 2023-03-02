@@ -4,7 +4,7 @@ from operations.find import find_valid_products, find_core_features, find_dead_f
 
 find_bp = Blueprint('find_bp', __name__, url_prefix='/api/v1/find')
 
-MODEL_FOLDER = './operations/models/'
+MODEL_FOLDER = './resources/models/'
 
 ALLOWED_EXTENSIONS = {'uvl'}
 
