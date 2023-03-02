@@ -54,6 +54,9 @@ def configuration_validator(model, configuration):
 
     os.rename(configuration_path, csvconf_path)
 
+    #save changes
+    
+
     dm = DiscoverMetamodels()
 
 
