@@ -6,9 +6,9 @@ __pycache__/
 # C extensions
 *.so
 .vscode
-operations/models/
-operations/products/
-operations/configurations/
+resources/models/
+resources/products/
+resources/configurations/
 
 # Distribution / packaging
 .Python

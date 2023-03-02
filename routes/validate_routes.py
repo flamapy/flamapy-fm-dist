@@ -4,8 +4,8 @@ from operations.validate import model_validator, product_validator
 
 validate_bp = Blueprint('validate_bp', __name__, url_prefix='/api/v1/validate')
 
-MODEL_FOLDER = './operations/models/'
-PRODUCT_FOLDER = './operations/products/'
+MODEL_FOLDER = './resources/models/'
+PRODUCT_FOLDER = './resources/products/'
 
 ALLOWED_EXTENSIONS = {'uvl'}
 
@@ -66,3 +66,33 @@ def check_product():
     # If no file is provided
     else:
         return 'No file or product provided'
+
+@validate_bp.route('/configuration', methods=['POST'])
+def check_configuration():
+    # Get files
+    uploaded_model = request.files['model']
+    uploaded_configuration = request.files['configuration']
+
+    # Check if files are provided
+    if uploaded_model.filename != '' and uploaded_configuration.filename != '':
+        
+        # Save files
+        uploaded_model.save(os.path.join(MODEL_FOLDER, uploaded_model.filename))
+        uploaded_configuration.save(os.path.join(PRODUCT_FOLDER, uploaded_configuration.filename))
+        
+        # Validate
+        result = configuration_validator(os.path.join(MODEL_FOLDER, uploaded_model.filename), os.path.join(PRODUCT_FOLDER, uploaded_configuration.filename))
+        
+        # Remove files
+        os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
+        os.remove(os.path.join(PRODUCT_FOLDER, uploaded_configuration.filename))
+
+        # Return result
+        if (result):
+            return 'Configuration is valid'
+        else:
+            return jsonify(error='Configuration is not valid'), 404
+
+    # If no file is provided
+    else:
+        return 'No file or configuration provided'

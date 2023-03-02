@@ -4,7 +4,7 @@ from operations.count import count_valid_products, count_leafs
 
 count_bp = Blueprint('count_bp', __name__, url_prefix='/api/v1/count')
 
-MODEL_FOLDER = './operations/models/'
+MODEL_FOLDER = './resources/models/'
 
 ALLOWED_EXTENSIONS = {'uvl'}
 
