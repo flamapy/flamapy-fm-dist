@@ -1,3 +1,4 @@
+import os
 from flamapy.core.discover import DiscoverMetamodels
 
 
@@ -30,9 +31,14 @@ def product_validator(model, product):
 
     dm = DiscoverMetamodels()
 
+    product_path = product
+    csvconf_path = product.replace(".csv", ".csvconf")
+
+    os.rename(product_path, csvconf_path)
+
     # Try to use the Valid operation, which returns True if the product is valid
 
-    return dm.use_operation_from_file('ValidProduct', model, product)
+
 
 def configuration_validator(model, configuration):
     """
@@ -42,8 +48,20 @@ def configuration_validator(model, configuration):
     exception is raised and the operation returns False.
     """
 
+
+    configuration_path = configuration
+    csvconf_path = configuration.replace(".csv", ".csvconf")
+
+    os.rename(configuration_path, csvconf_path)
+
     dm = DiscoverMetamodels()
+
 
     # Try to use the Valid operation, which returns True if the configuration is valid
 
-    return dm.use_operation_from_file(operation_name='ValidConfiguration', file = model, plugin_name = 'pysat_metamodel', configuration_file=configuration)
+
+
+print("PRODUCT: ", product_validator("./operations/models/valid_model.uvl",
+      "./operations/products/valid_product.csv"))
+print("CONFIG: ", configuration_validator("./operations/models/valid_model.uvl",
+      "./operations/configurations/valid_configuration.csv"))
