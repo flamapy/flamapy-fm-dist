@@ -1,3 +1,12 @@
+<div align="center">
+
+  <a href="">[![Pytest Testing Suite](https://github.com/joszamama/flamapy-api/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/joszamama/flamapy-api/actions/workflows/tests.yml)</a>
+  <a href="">[![Commits Syntax Checker](https://github.com/joszamama/flamapy-api/actions/workflows/commits.yml/badge.svg?branch=main)](https://github.com/joszamama/flamapy-api/actions/workflows/commits.yml)</a>
+  
+</div>
+
+# 
+
 <div id="top"></div>
 <br />
 <div align="center">
@@ -6,6 +15,7 @@
 
   <p align="center">
     A new and easy way to use FLAMA
+
     <br />
     <a href="https://github.com/joszamama/flamapy-api/issues">Report Bug</a>
     ·
