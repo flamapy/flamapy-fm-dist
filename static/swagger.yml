@@ -418,4 +418,69 @@ paths:
                   error:
                     type: string
                     example: Model is not valid
-  
+  /api/v1/validate/product:
+    post:
+      summary: Validate product file
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+                product:
+                  type: string
+                  format: binary
+              required:
+                - model
+                - product
+      responses:
+        '200':
+          description: Product is valid
+        '404':
+          description: Product is not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      tags:
+        - Validate
+  /api/v1/validate/configuration:
+    post:
+      summary: Validate configuration file
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+                configuration:
+                  type: string
+                  format: binary
+              required:
+                - model
+                - configuration
+      responses:
+        '200':
+          description: Configuration is valid
+        '404':
+          description: Configuration is not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      tags:
+        - Validate

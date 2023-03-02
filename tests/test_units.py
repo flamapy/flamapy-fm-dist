@@ -6,7 +6,7 @@ sys.path.append(".")
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 from app import app
-from operations.validate import model_validator, product_validator
+from operations.validate import model_validator, product_validator, configuration_validator
 from operations.count import count_valid_products, count_leafs
 from operations.find import find_valid_products, find_core_features
 from operations.info import get_plugins, get_operations
@@ -55,27 +55,38 @@ def test_model_validator_invalid_model():
     # Assert
     assert result == False
 
-# def test_product_validator_valid_product():
-#     # Arrange
-#     valid_model = "../operations/products/valid_model.uvl"
-#     valid_product = "../operations/products/valid_product.csv"
+def test_product_validator_valid_product():
+    # Arrange
+    valid_model = "./operations/models/valid_model.uvl"
+    valid_product = "./operations/products/valid_product.csv"
 
-#     # Act
-#     result = product_validator(valid_model, valid_product)
+    # Act
+    result = product_validator(valid_model, valid_product)
 
-#     # Assert
-#     assert result == True
+    # Assert
+    assert result == True
 
-# def test_product_validator_invalid_product():
-#     # Arrange
-#     valid_model = "../operations/products/valid_model.uvl"
-#     invalid_product = "../operations/products/invalid_product.csv"
+def test_product_validator_invalid_product():
+    # Arrange
+    valid_model = "./operations/models/valid_model.uvl"
+    invalid_product = "./operations/products/invalid_product.csv"
 
-#     # Act
-#     result = product_validator(valid_model, invalid_product)
+    # Act
+    result = product_validator(valid_model, invalid_product)
 
-#     # Assert
-#     assert result == False
+    # Assert
+    assert result == False
+
+def test_configuration_validator_valid_configuration():
+    # Arrange
+    valid_model = "./operations/models/valid_model.uvl"
+    valid_configuration = "./operations/configurations/valid_configuration.csv"
+
+    # Act
+    result = configuration_validator(valid_model, valid_configuration)
+
+    # Assert
+    assert result == True
 
 
 def test_count_valid_products():
