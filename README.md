@@ -15,7 +15,6 @@
 
   <p align="center">
     A new and easy way to use FLAMA
-
     <br />
     <a href="https://github.com/joszamama/flamapy-api/issues">Report Bug</a>
     ·
