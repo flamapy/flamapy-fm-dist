@@ -308,7 +308,41 @@ paths:
                 properties:
                   error:
                     type: string
-  
+  /api/v1/find/leaf-features:
+    post:
+      summary: Find leaf features
+      tags:
+        - Find
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  # define properties here based on the response
+                  # from the `find_leaf_features()` function
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
   /api/v1/count/valid-products:
     post:
       summary: Count valid products from uploaded model file.

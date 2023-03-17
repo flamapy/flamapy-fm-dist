@@ -1,16 +1,14 @@
+from operations.info import get_plugins, get_operations
+from operations.find import find_valid_products, find_core_features, find_leaf_features
+from operations.count import count_valid_products, count_leafs
+from operations.validate import model_validator, product_validator, configuration_validator
+from app import app
 import sys
 import warnings
 import pytest
 
 sys.path.append(".")
 warnings.filterwarnings("ignore", category=DeprecationWarning)
-
-from app import app
-from operations.validate import model_validator, product_validator, configuration_validator
-from operations.count import count_valid_products, count_leafs
-from operations.find import find_valid_products, find_core_features
-from operations.info import get_plugins, get_operations
-
 
 
 def test_get_plugins():
@@ -55,6 +53,7 @@ def test_model_validator_invalid_model():
     # Assert
     assert result == False
 
+
 def test_product_validator_valid_product():
     # Arrange
     valid_model = "./resources/models/valid_model.uvl"
@@ -66,6 +65,7 @@ def test_product_validator_valid_product():
     # Assert
     assert result == True
 
+
 def test_product_validator_invalid_product():
     # Arrange
     valid_model = "./resources/models/valid_model.uvl"
@@ -76,6 +76,7 @@ def test_product_validator_invalid_product():
 
     # Assert
     assert result == False
+
 
 def test_configuration_validator_valid_configuration():
     # Arrange
@@ -120,6 +121,19 @@ def test_find_valid_products():
 
     # Assert
     assert len(result) > 0
+
+
+def test_find_leaf_features():
+    # Arrange
+    valid_model = "./resources/models/valid_model.uvl"
+    leaf_features = ["v74",   "LOW",   "ENOUGH",   "Catalog",   "BASIC",   "ADVANCED",   "Cart",   "PayPal",
+                     "CreditCard",   "Mobile",   "HIGH",   "STANDARD",   "Backup",   "SEO",   "Twitter",   "Facebook",   "YouTube"]
+
+    # Act
+    result = find_leaf_features(valid_model)
+
+    # Assert
+    assert result == leaf_features
 
 
 def test_find_core_features():
