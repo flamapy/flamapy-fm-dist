@@ -1,5 +1,26 @@
 from flamapy.core.discover import DiscoverMetamodels
 
+def find_leaf_features(model):
+    """ 
+    This operation is used to find leaf features in a model:
+    It returns the leaf features if they are found in the model. 
+    If the model does not follow the UVL specification, an 
+    exception is raised and the operation returns False.
+    """
+
+    # Use the operation from the DiscoverMetamodels class
+    dm = DiscoverMetamodels()
+
+    # Try to use the Find operation, which returns the leaf features if they are found
+    try:
+        features = dm.use_operation_from_file('FMLeafFeatures', model)
+        leaf_features = []
+        for feature in features:
+            leaf_features.append(feature.name)
+        return leaf_features
+    except:
+        return False
+
 def find_valid_products(model):
     """ 
     This operation is used to find products in a model:
