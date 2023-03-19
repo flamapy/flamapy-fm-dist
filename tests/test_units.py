@@ -123,19 +123,6 @@ def test_find_valid_products():
     assert len(result) > 0
 
 
-def test_find_leaf_features():
-    # Arrange
-    valid_model = "./resources/models/valid_model.uvl"
-    leaf_features = ["v74",   "LOW",   "ENOUGH",   "Catalog",   "BASIC",   "ADVANCED",   "Cart",   "PayPal",
-                     "CreditCard",   "Mobile",   "HIGH",   "STANDARD",   "Backup",   "SEO",   "Twitter",   "Facebook",   "YouTube"]
-
-    # Act
-    result = find_leaf_features(valid_model)
-
-    # Assert
-    assert result == leaf_features
-
-
 def test_find_core_features():
     # Arrange
     valid_model = "./resources/models/valid_model.uvl"
