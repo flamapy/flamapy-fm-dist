@@ -1,8 +1,3 @@
-from operations.info import get_plugins, get_operations
-from operations.find import find_valid_products, find_core_features, find_leaf_features
-from operations.count import count_valid_products, count_leafs
-from operations.validate import model_validator, product_validator, configuration_validator
-from app import app
 import sys
 import warnings
 import pytest
@@ -10,6 +5,11 @@ import pytest
 sys.path.append(".")
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
+from app import app
+from operations.info import get_plugins, get_operations
+from operations.find import find_valid_products, find_core_features
+from operations.count import count_valid_products, count_leafs
+from operations.validate import model_validator, product_validator, configuration_validator
 
 def test_get_plugins():
     # Arrange

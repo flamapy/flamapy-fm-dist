@@ -4,9 +4,8 @@ info:
   description: A simple Flask API for FLAMAPY
   version: "1.0"
 servers:
-  - url: https://joszamama-flama-api.onrender.com/
-  - url: http://localhost:5000/
   - url: https://flamapy-api.onrender.com/
+  - url: http://localhost:5000/
 paths:
   /:
     get:
