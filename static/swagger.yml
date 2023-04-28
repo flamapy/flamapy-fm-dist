@@ -592,3 +592,52 @@ paths:
                       type: string
         tags:
           - Recommendations
+  /api/v1/recommendations/analysis/restrictiveness:
+      post:
+        summary: Compute the restrictiveness of a feature list
+        requestBody:
+          required: true
+          content:
+            multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  model:
+                    type: string
+                    format: binary
+                  products:
+                    type: string
+                    format: binary
+                  features:
+                    type: array
+                    items:
+                      type: string
+                required:
+                  - model
+                  - products
+                  - features
+        responses:
+          '200':
+            description: Restrictiveness %
+          '404':
+            description: Objects are not valid
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+        tags:
+          - Recommendations
+
+
+
+
+
+
+
+
+
+
+
