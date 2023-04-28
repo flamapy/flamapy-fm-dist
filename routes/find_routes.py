@@ -6,7 +6,6 @@ find_bp = Blueprint('find_bp', __name__, url_prefix='/api/v1/find')
 
 MODEL_FOLDER = './resources/models/'
 
-ALLOWED_EXTENSIONS = {'uvl'}
 
 @find_bp.route('/leaf-features', methods=['POST'])
 def leaf_features():

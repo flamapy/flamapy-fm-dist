@@ -8,7 +8,6 @@ MODEL_FOLDER = './resources/models/'
 PRODUCT_FOLDER = './resources/products/'
 CONFIGURATION_FOLDER = './resources/configurations/'
 
-ALLOWED_EXTENSIONS = {'uvl'}
 
 @validate_bp.route('/model', methods=['POST'])
 def check_model():
@@ -19,20 +18,20 @@ def check_model():
     if uploaded_model.filename != '':
 
         # Save file
-        uploaded_model.save(os.path.join(MODEL_FOLDER, uploaded_model.filename))
+        uploaded_model.save(os.path.join(
+            MODEL_FOLDER, uploaded_model.filename))
 
         # Validate
-        result = model_validator(os.path.join(MODEL_FOLDER, uploaded_model.filename))
+        result = model_validator(os.path.join(
+            MODEL_FOLDER, uploaded_model.filename))
 
         # Remove file
         os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
 
         # Return result
         if (result):
-            return 'Model is valid'
-        else:
-            return jsonify(error='Model is not valid'), 404
-    
+            return result
+
     # If no file is provided
     else:
         return 'No file uploaded'
@@ -46,14 +45,17 @@ def check_product():
 
     # Check if files are provided
     if uploaded_model.filename != '' and uploaded_product.filename != '':
-        
+
         # Save files
-        uploaded_model.save(os.path.join(MODEL_FOLDER, uploaded_model.filename))
-        uploaded_product.save(os.path.join(PRODUCT_FOLDER, uploaded_product.filename))
-        
+        uploaded_model.save(os.path.join(
+            MODEL_FOLDER, uploaded_model.filename))
+        uploaded_product.save(os.path.join(
+            PRODUCT_FOLDER, uploaded_product.filename))
+
         # Validate
-        result = product_validator(os.path.join(MODEL_FOLDER, uploaded_model.filename), os.path.join(PRODUCT_FOLDER, uploaded_product.filename))
-        
+        result = product_validator(os.path.join(MODEL_FOLDER, uploaded_model.filename), os.path.join(
+            PRODUCT_FOLDER, uploaded_product.filename))
+
         # Remove files
         os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
         os.remove(os.path.join(PRODUCT_FOLDER, uploaded_product.filename))
@@ -68,6 +70,7 @@ def check_product():
     else:
         return 'No file or product provided'
 
+
 @validate_bp.route('/configuration', methods=['POST'])
 def check_configuration():
     # Get files
@@ -76,17 +79,21 @@ def check_configuration():
 
     # Check if files are provided
     if uploaded_model.filename != '' and uploaded_configuration.filename != '':
-        
+
         # Save files
-        uploaded_model.save(os.path.join(MODEL_FOLDER, uploaded_model.filename))
-        uploaded_configuration.save(os.path.join(CONFIGURATION_FOLDER, uploaded_configuration.filename))
-        
+        uploaded_model.save(os.path.join(
+            MODEL_FOLDER, uploaded_model.filename))
+        uploaded_configuration.save(os.path.join(
+            CONFIGURATION_FOLDER, uploaded_configuration.filename))
+
         # Validate
-        result = configuration_validator(os.path.join(MODEL_FOLDER, uploaded_model.filename), os.path.join(CONFIGURATION_FOLDER, uploaded_configuration.filename))
-        
+        result = configuration_validator(os.path.join(MODEL_FOLDER, uploaded_model.filename), os.path.join(
+            CONFIGURATION_FOLDER, uploaded_configuration.filename))
+
         # Remove files
         os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
-        os.remove(os.path.join(CONFIGURATION_FOLDER, uploaded_configuration.filename))
+        os.remove(os.path.join(CONFIGURATION_FOLDER,
+                  uploaded_configuration.filename))
 
         # Return result
         if (result):

@@ -18,6 +18,7 @@ def count_valid_products(model):
     except:
         return False
 
+
 def count_leafs(model):
     """ 
     This operation is used to count the number of leafs in a model:

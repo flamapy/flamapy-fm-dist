@@ -21,7 +21,6 @@ def model_validator(model):
     except:
         return False
 
-
 def product_validator(model, product):
     """
     This operation is used to validate a product:

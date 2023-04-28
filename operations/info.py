@@ -1,7 +1,6 @@
 from typing import NewType
 from flamapy.core.discover import DiscoverMetamodels
 
-PluginsType = NewType('PluginsType', dict[str, list[str]])
 
 def get_plugins():
     """ 
@@ -17,7 +16,8 @@ def get_plugins():
         return dm.get_plugins()
     except:
         return False
-    
+
+
 def get_operations(plugin):
     """ 
     This operation is used to get the list of operations:

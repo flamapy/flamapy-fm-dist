@@ -6,7 +6,6 @@ count_bp = Blueprint('count_bp', __name__, url_prefix='/api/v1/count')
 
 MODEL_FOLDER = './resources/models/'
 
-ALLOWED_EXTENSIONS = {'uvl'}
 
 @count_bp.route('/valid-products', methods=['POST'])
 def valid_products():
