@@ -16,6 +16,7 @@ def check_recommendation_objects(model, products, query=None):
     """
 
     dm = DiscoverMetamodels()
+
     try:
         fm = dm.use_transformation_t2m(model, "fm")
         features = [feature.name for feature in fm.get_features()]
@@ -67,6 +68,9 @@ def get_recommendations(model, products, query):
     :param query: The query file.
     :return: A dictionary with the recommendations.
     """
+    message = check_recommendation_objects(model, products, query)
+    if message != 1:
+        return message
 
     dm = DiscoverMetamodels()
 
@@ -118,11 +122,11 @@ def consistent_configurations(model, products):
     :param products: The products file.
     :return: A dictionary with the consistent configurations.
     """
-    dm = DiscoverMetamodels()
-
     message = check_recommendation_objects(model, products)
     if message != 1:
         return message
+
+    dm = DiscoverMetamodels()
 
     try:
         configurations = dm.use_operation_from_file('Products', model)
@@ -160,6 +164,11 @@ def restrictiveness(model, products, feature_list):
     :param feature_list: The list of features.
     :return: The restrictiveness.
     """
+
+    message = check_recommendation_objects(model, products)
+    if message != 1:
+        return message
+
     products, consistent_products = consistent_configurations(model, products)
 
     valid_products = {}
@@ -177,11 +186,16 @@ def accessibility(model, products):
     :param products: The products file.
     :return: The accessibility.
     """
+    message = check_recommendation_objects(model, products)
+    if message != 1:
+        return message
+
     dm = DiscoverMetamodels()
 
     try:
         fm = dm.use_transformation_t2m(model, "fm")
-        features = [feature.name for feature in fm.get_features()]
+        features = [feature.name for feature in fm.get_features()
+                    if feature.is_leaf()]
     except:
         error = "The model does not exist or is not a valid feature model."
         return error
@@ -199,7 +213,6 @@ def accessibility(model, products):
     try:
         results = {}
         for i in range(1, len(combinations_list)+1):
-            # create a new csv file for each combination and for each feature in it write a row with the feature name and true
             query = "./resources/recommender/query.csv"
             with open(query, 'w', newline='') as csvfile:
                 csv_writer = csv.writer(csvfile)
@@ -239,6 +252,11 @@ def catalog_coverage(model, products):
     :param products: The products file.
     :return: The catalog coverage.
     """
+
+    message = check_recommendation_objects(model, products)
+    if message != 1:
+        return message
+
     products_count, _ = accessibility(model, products)
 
     products_with_recommendations = 0
@@ -268,15 +286,20 @@ def visibility(model, products, product):
     :param product: The product.
     :return: The visibility.
     """
+
+    message = check_recommendation_objects(model, products)
+    if message != 1:
+        return message
+
     _, results = accessibility(model, products)
     num = 0
     den = 0
     for key, value in results.items():
         if product in value:
-            num += list(value.keys()).index(product)
+            num += list(value.keys()).index(product) + 1
             den += len(value)
 
-    return num / den * 100
+    return (1 - num / den) * 100
 
 
 def controversy(model, products, feature_list):
@@ -287,11 +310,16 @@ def controversy(model, products, feature_list):
     :param feature_list: The list of features.
     :return: The controversy.
     """
+    message = check_recommendation_objects(model, products)
+    if message != 1:
+        return message
+
     dm = DiscoverMetamodels()
 
     try:
         fm = dm.use_transformation_t2m(model, "fm")
-        features = [feature.name for feature in fm.get_features()]
+        features = [feature.name for feature in fm.get_features()
+                    if feature.is_leaf()]
     except:
         error = "The model does not exist or is not a valid feature model."
         return error
@@ -309,7 +337,6 @@ def controversy(model, products, feature_list):
     try:
         results = {}
         for combination in combinations_list:
-            # create a new csv file for each combination and for each feature in it write a row with the feature name and true
             query = "./resources/recommender/query.csv"
             with open(query, 'w', newline='') as csvfile:
                 csv_writer = csv.writer(csvfile)
@@ -340,11 +367,17 @@ def global_controversy(model, products):
     :param products: The products file.
     :return: The global controversy.
     """
+
+    message = check_recommendation_objects(model, products)
+    if message != 1:
+        return message
+
     dm = DiscoverMetamodels()
 
     try:
         fm = dm.use_transformation_t2m(model, "fm")
-        features = [feature.name for feature in fm.get_features()]
+        features = [feature.name for feature in fm.get_features()
+                    if feature.is_leaf()]
     except:
         error = "The model does not exist or is not a valid feature model."
         return error
@@ -362,7 +395,6 @@ def global_controversy(model, products):
     try:
         results = {}
         for combination in combinations_list:
-            # create a new csv file for each combination and for each feature in it write a row with the feature name and true
             query = "./resources/recommender/query.csv"
             with open(query, 'w', newline='') as csvfile:
                 csv_writer = csv.writer(csvfile)
@@ -376,7 +408,6 @@ def global_controversy(model, products):
         error = "Could not write query file."
         return error
 
-    # count how many dict is empty
     count = 0
     for key, value in results.items():
         if not value:
