@@ -30,7 +30,9 @@ def check_model():
 
         # Return result
         if (result):
-            return result
+            return 'Model is valid'
+        else:
+            return jsonify(error='Model is not valid'), 404
 
     # If no file is provided
     else:
