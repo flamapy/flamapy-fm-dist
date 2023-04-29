@@ -329,13 +329,20 @@ paths:
             application/json:
               schema:
                 type: object
-              properties:
-                name:
-                  type: string
-                id:
-                  type: integer
-                value:
-                  type: number
+                properties:
+                  core_features:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        feature_id:
+                          type: integer
+                        feature_name:
+                          type: string
+                        feature_type:
+                          type: string
+                        feature_description:
+                          type: string
         '404':
           description: Not found
           content:
