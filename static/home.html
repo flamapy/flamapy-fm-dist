@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLAMAPY API</title>
+    <!-- Import Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <!-- Optional: Import custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="d-flex flex-column">
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">FLAMAPY API</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/docs">Docs</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home section -->
+    <section id="home" class="py-5">
+        <div class="container">
+            <h1>FLAMAPY API</h1>
+            <p>FLAMAPY is a Python-based AAFM framework that takes into consideration previous AAFM tool designs and
+                enables multi-solver and multi-metamodel support for the integration of AAFM tooling on the Python
+                ecosystem.
+                The main goal is
+                to improve the usability of FLAMA making the framework more accessible to the public. However, this API
+                only works with feature model analysis, since the scope is fixed. In the documentation you will be able
+                to find all the operations, sample data to try and expected outputs for each operation. Moreover, in the
+                official repository linked in the footer you can find code examples for each operation.</p>
+                <br>
+            <h2>Main Features</h2>
+            The main features of the FLAMA framework are listed below:
+            <br>    
+            <ol>
+                <li>Easy to extend by enabling the creation of new plugins following a semi-automatic generator
+                    approach.</li>
+                <li>Support multiple variability models: Currently, it provides support for cardinality-based feature
+                    models. However, it is easy to integrate others such as attributed feature models.</li>
+                <li>Support multiple solvers: Currently, it provides support for the PySAT metasolver, which enables
+                    more than ten different solvers.</li>
+                <li>Support multiple operations: It is developed, having in mind multi-model operations such as those
+                    depicted by Familiar and single-model operations.</li>
+            </ol>
+            <br><br>
+
+            <h2>Built With</h2>
+            <div class="row justify-content-center pt-5">
+                <div class="col-md-2 col-sm-4 col-6 mb-5">
+                    <!-- Image 5 goes here -->
+                    <a href="https://flask.palletsprojects.com/en/2.3.x/">
+                        <img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*0G5zu7CnXdMT9pGbYUTQLQ.png"
+                            alt="Flask logo" width="140">
+                    </a>
+                </div>
+                <div class="col-md-2 col-sm-4 col-6 mb-5">
+                    <!-- Image 5 goes here -->
+                    <a href="https://www.python.org/downloads/">
+                        <img src="https://miro.medium.com/v2/resize:fit:1400/1*m0H6-tUbW6grMlezlb52yw.png"
+                            alt="Python logo" width="200">
+                    </a>
+                </div>
+                <div class="col-md-2 col-sm-4 col-6 mb-5">
+                    <!-- Image 4 goes here -->
+                    <a href="https://flamapy.github.io/">
+                        <img src="https://flamapy.github.io/images/illustrations/main_logo.png" alt="FLAMA logo"
+                            width="140">
+                    </a>
+                </div>
+                <div class="col-md-2 col-sm-4 col-6 mb-4">
+                    <!-- Image 1 goes here -->
+                    <a href="https://www.docker.com/">
+                        <img src="https://aprenderbigdata.com/wp-content/uploads/docker-logo-1024x876.png"
+                            alt="Docker logo" width="100">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="bg-light text-center text-lg-start mt-auto">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 FLAMAPY API
+            <a href="https://github.com/joszamama/flamapy-api" target="_blank">
+                <i class="fab fa-github mx-2">Link to code repository on GitHub</i>
+            </a>
+        </div>
+
+    </footer>
+
+    <!-- Import Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <!-- Import jQuery and Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Handle click event on the navbar-toggler icon
+            $('.navbar-toggler').click(function () {
+                $('.navbar-collapse').slideToggle();
+            });
+        });
+    </script>
+
+</body>
+
+</html>

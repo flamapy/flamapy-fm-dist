@@ -32,9 +32,8 @@ app.register_blueprint(find_bp)
 app.register_blueprint(recommender_bp)
 
 @app.route("/", methods=['GET'])
-def hello_world():
-    return 'FLAMAPY API - V1 - Running and ready to use! - Docs: /docs'
-
+def home():
+    return app.send_static_file('home.html')
 
 if __name__ == '__main__':
     app.run()

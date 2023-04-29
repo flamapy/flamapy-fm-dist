@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: FLAMAPY API
-  description: A simple Flask API for FLAMAPY
+  description: FLAMAPY API, a Python-based AAFM API for feature models analysis.
   version: "1.0"
 servers:
   - url: https://flamapy-api.onrender.com/
