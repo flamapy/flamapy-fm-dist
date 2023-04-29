@@ -129,7 +129,7 @@ def accessibility_route():
         products.save(os.path.join(PRODUCT_FOLDER, products.filename))
 
         # Result
-        result = accessibility(os.path.join(MODEL_FOLDER, model.filename), os.path.join(
+        results, _ = accessibility(os.path.join(MODEL_FOLDER, model.filename), os.path.join(
             PRODUCT_FOLDER, products.filename))
 
         # Remove files
@@ -137,7 +137,7 @@ def accessibility_route():
         os.remove(os.path.join(PRODUCT_FOLDER, products.filename))
 
         # Return result
-        return str(result)
+        return str(results)
 
     # If no file is provided
     else:
