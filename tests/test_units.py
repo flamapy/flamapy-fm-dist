@@ -6,12 +6,10 @@ sys.path.append(".")
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 from app import app
-from operations.validate import model_validator, product_validator, configuration_validator
-from operations.count import count_valid_products, count_leafs
-from operations.find import find_valid_products, find_core_features
 from operations.info import get_plugins, get_operations
-
-
+from operations.find import find_valid_products, find_core_features
+from operations.count import count_valid_products, count_leafs
+from operations.validate import model_validator, product_validator, configuration_validator
 
 def test_get_plugins():
     # Arrange
@@ -55,6 +53,7 @@ def test_model_validator_invalid_model():
     # Assert
     assert result == False
 
+
 def test_product_validator_valid_product():
     # Arrange
     valid_model = "./resources/models/valid_model.uvl"
@@ -66,6 +65,7 @@ def test_product_validator_valid_product():
     # Assert
     assert result == True
 
+
 def test_product_validator_invalid_product():
     # Arrange
     valid_model = "./resources/models/valid_model.uvl"
@@ -76,6 +76,7 @@ def test_product_validator_invalid_product():
 
     # Assert
     assert result == False
+
 
 def test_configuration_validator_valid_configuration():
     # Arrange

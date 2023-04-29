@@ -1,0 +1,8 @@
+product=p1,camera=true,goal=true,lightweight=false,exchangelens=true,waterproof=true,landscape=true,portrait=true,sports=true
+product=p2,camera=true,goal=true,lightweight=true,exchangelens=false,waterproof=false,landscape=true,portrait=true,sports=false
+product=p3,camera=true,goal=true,lightweight=false,exchangelens=true,waterproof=true,landscape=true,portrait=false,sports=true
+product=p4,camera=true,goal=true,lightweight=true,exchangelens=true,waterproof=true,landscape=true,portrait=true,sports=false
+product=p5,camera=true,goal=true,lightweight=true,exchangelens=false,waterproof=false,landscape=true,portrait=false,sports=false
+product=p6,camera=true,goal=true,lightweight=false,exchangelens=false,waterproof=true,landscape=true,portrait=false,sports=true
+product=p7,camera=true,goal=true,lightweight=false,exchangelens=false,waterproof=false,landscape=true,portrait=false,sports=false
+product=p8,camera=true,goal=true,lightweight=true,exchangelens=false,waterproof=true,landscape=true,portrait=true,sports=false

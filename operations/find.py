@@ -1,5 +1,28 @@
 from flamapy.core.discover import DiscoverMetamodels
 
+
+def find_leaf_features(model):
+    """ 
+    This operation is used to find leaf features in a model:
+    It returns the leaf features if they are found in the model. 
+    If the model does not follow the UVL specification, an 
+    exception is raised and the operation returns False.
+    """
+
+    # Use the operation from the DiscoverMetamodels class
+    dm = DiscoverMetamodels()
+
+    # Try to use the Find operation, which returns the leaf features if they are found
+    try:
+        features = dm.use_operation_from_file('FMLeafFeatures', model)
+        leaf_features = []
+        for feature in features:
+            leaf_features.append(feature.name)
+        return leaf_features
+    except:
+        return False
+
+
 def find_valid_products(model):
     """ 
     This operation is used to find products in a model:
@@ -16,7 +39,8 @@ def find_valid_products(model):
         return dm.use_operation_from_file('Products', model)
     except:
         return False
-    
+
+
 def find_core_features(model):
     """ 
     This operation is used to find the core features in a model:
@@ -37,7 +61,8 @@ def find_core_features(model):
         return core_features
     except:
         return False
-    
+
+
 def find_dead_features(model):
     """ 
     This operation is used to find the dead features in a model:
@@ -59,6 +84,7 @@ def find_dead_features(model):
     except Exception as e:
         return False
 
+
 def find_max_depth(model):
     """ 
     This operation is used to find the max depth of the tree in a model:
@@ -75,6 +101,7 @@ def find_max_depth(model):
         return dm.use_operation_from_file('FMMaxDepthTree', model)
     except:
         return False
+
 
 def find_atomic_sets(model):
     """ 

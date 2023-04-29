@@ -6,6 +6,7 @@ from routes.info_routes import info_bp
 from routes.validate_routes import validate_bp
 from routes.count_routes import count_bp
 from routes.find_routes import find_bp
+from routes.recommender_routes import recommender_bp
 
 # Creating the app and configuring it
 app = Flask(__name__)
@@ -28,11 +29,11 @@ app.register_blueprint(info_bp)
 app.register_blueprint(validate_bp)
 app.register_blueprint(count_bp)
 app.register_blueprint(find_bp)
+app.register_blueprint(recommender_bp)
 
 @app.route("/", methods=['GET'])
-def hello_world():
-    return 'FLAMAPY API - V1 - Running and ready to use! - Docs: /docs'
-
+def home():
+    return app.send_static_file('home.html')
 
 if __name__ == '__main__':
     app.run()

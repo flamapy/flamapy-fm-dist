@@ -1,13 +1,36 @@
 import os
 from flask import Blueprint, request, jsonify
-from operations.find import find_valid_products, find_core_features, find_dead_features, find_max_depth, find_atomic_sets
+from operations.find import find_valid_products, find_core_features, find_dead_features, find_max_depth, find_atomic_sets, find_leaf_features
 
 find_bp = Blueprint('find_bp', __name__, url_prefix='/api/v1/find')
 
 MODEL_FOLDER = './resources/models/'
 
-ALLOWED_EXTENSIONS = {'uvl'}
 
+@find_bp.route('/leaf-features', methods=['POST'])
+def leaf_features():
+    # Get files
+      uploaded_model = request.files['model']
+
+      # Check if file is provided
+      if uploaded_model.filename != '':
+
+            # Save file
+            uploaded_model.save(os.path.join(
+            MODEL_FOLDER, uploaded_model.filename))
+
+            # Count
+            result = find_leaf_features(os.path.join(
+            MODEL_FOLDER, uploaded_model.filename))
+
+            # Remove file
+            os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
+
+            # Return result
+            if (result):
+                  return jsonify(result)
+            else:
+                  return jsonify(error='No valid products found'), 404
 
 @find_bp.route('/valid-products', methods=['POST'])
 def valid_products():

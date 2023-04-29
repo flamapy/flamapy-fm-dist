@@ -1,12 +1,11 @@
 openapi: 3.0.0
 info:
   title: FLAMAPY API
-  description: A simple Flask API for FLAMAPY
+  description: FLAMAPY API, a Python-based AAFM API for feature models analysis.
   version: "1.0"
 servers:
-  - url: https://joszamama-flama-api.onrender.com/
-  - url: http://localhost:5000/
   - url: https://flamapy-api.onrender.com/
+  - url: http://localhost:5000/
 paths:
   /:
     get:
@@ -308,7 +307,52 @@ paths:
                 properties:
                   error:
                     type: string
-  
+  /api/v1/find/leaf-features:
+    post:
+      summary: Find leaf features
+      tags:
+        - Find
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  core_features:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        feature_id:
+                          type: integer
+                        feature_name:
+                          type: string
+                        feature_type:
+                          type: string
+                        feature_description:
+                          type: string
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
   /api/v1/count/valid-products:
     post:
       summary: Count valid products from uploaded model file.
@@ -484,3 +528,289 @@ paths:
                     type: string
       tags:
         - Validate
+
+  /api/v1/recommendations/:
+    post:
+      summary: Recommend products based on a query
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+                products:
+                  type: string
+                  format: binary
+                query:
+                  type: string
+                  format: binary
+              required:
+                - model
+                - products
+                - query
+      responses:
+        '200':
+          description: Recommendations are valid
+        '404':
+          description: Recommendations are not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      tags:
+        - Recommendations
+  /api/v1/recommendations/validate:
+    post:
+      summary: Check validity of recommendation objects
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+                products:
+                  type: string
+                  format: binary
+                query:
+                  type: string
+                  format: binary
+              required:
+                - model
+                - products
+                - query
+      responses:
+        '200':
+          description: Objects are valid
+        '404':
+          description: Objects are not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      tags:
+        - Recommendations
+  /api/v1/recommendations/analysis/restrictiveness:
+    post:
+      summary: Compute the restrictiveness of a feature list
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+                products:
+                  type: string
+                  format: binary
+                features:
+                  type: array
+                  items:
+                    type: string
+              required:
+                - model
+                - products
+                - features
+      responses:
+        '200':
+          description: Restrictiveness %
+        '404':
+          description: Objects are not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      tags:
+        - Recommendations
+  /api/v1/recommendations/analysis/accessibility:
+    post:
+      summary: Compute the accessibility of a feature list
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+                products:
+                  type: string
+                  format: binary
+              required:
+                - model
+                - products
+      responses:
+        '200':
+          description: Accessibility %
+        '404':
+          description: Objects are not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      tags:
+        - Recommendations
+  /api/v1/recommendations/analysis/catalog:
+    post:
+      summary: Compute the catalog coverage of a recommender feature model
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+                products:
+                  type: string
+                  format: binary
+              required:
+                - model
+                - products
+      responses:
+        '200':
+          description: Catalog Coverage %
+        '404':
+          description: Objects are not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      tags:
+        - Recommendations
+  /api/v1/recommendations/analysis/visibility:
+    post:
+      summary: Compute the visibility of a product in a recommender feature model
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+                products:
+                  type: string
+                  format: binary
+                product:
+                  type: string
+              required:
+                - model
+                - products
+                - product
+      responses:
+        '200':
+          description: Visibility %
+        '404':
+          description: Objects are not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      tags:
+        - Recommendations
+  /api/v1/recommendations/analysis/controversy:
+    post:
+      summary: Compute the controversy of a feature in a recommender feature model
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+                products:
+                  type: string
+                  format: binary
+                features:
+                  type: array
+                  items:
+                    type: string
+              required:
+                - model
+                - products
+                - features
+      responses:
+        '200':
+          description: Controversy %
+        '404':
+          description: Objects are not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      tags:
+        - Recommendations
+  /api/v1/recommendations/analysis/global-controversy:
+    post:
+      summary: Compute the global controversy in a recommender feature model
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  format: binary
+                products:
+                  type: string
+                  format: binary
+              required:
+                - model
+                - products
+      responses:
+        '200':
+          description: Global controversy %
+        '404':
+          description: Objects are not valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      tags:
+        - Recommendations

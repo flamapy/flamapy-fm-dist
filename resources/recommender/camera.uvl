@@ -1,0 +1,14 @@
+features
+    camera { abstract }
+        mandatory
+            goal
+                or
+                    landscape
+                    portrait
+                    sports
+        optional
+            lightweight
+            exchangelens
+            waterproof
+constraints
+    sports => waterproof
