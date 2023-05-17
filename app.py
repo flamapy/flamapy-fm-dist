@@ -25,7 +25,6 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 
 # Adding blueprints
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
-app.register_blueprint(info_bp)
 app.register_blueprint(validate_bp)
 app.register_blueprint(count_bp)
 app.register_blueprint(find_bp)

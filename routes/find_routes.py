@@ -1,6 +1,6 @@
 import os
 from flask import Blueprint, request, jsonify
-from operations.find import find_valid_products, find_core_features, find_dead_features, find_max_depth, find_atomic_sets, find_leaf_features
+from operations.FLAMAFeatureModel import FLAMAFeatureModel
 
 find_bp = Blueprint('find_bp', __name__, url_prefix='/api/v1/find')
 
@@ -19,12 +19,15 @@ def leaf_features():
             uploaded_model.save(os.path.join(
             MODEL_FOLDER, uploaded_model.filename))
 
-            # Count
-            result = find_leaf_features(os.path.join(
+            fm=FLAMAFeatureModel(os.path.join(
             MODEL_FOLDER, uploaded_model.filename))
+
+            result = fm.leaf_features()
 
             # Remove file
             os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
+            
+            
 
             # Return result
             if (result):
@@ -45,9 +48,11 @@ def valid_products():
             MODEL_FOLDER, uploaded_model.filename))
 
             # Count
-            result = find_valid_products(os.path.join(
+            fm=FLAMAFeatureModel(os.path.join(
             MODEL_FOLDER, uploaded_model.filename))
-
+            # Count
+            result = fm.valid_products()
+            
             # Remove file
             os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
 
@@ -70,10 +75,12 @@ def core_features():
             uploaded_model.save(os.path.join(
             MODEL_FOLDER, uploaded_model.filename))
 
-            # Count
-            result = find_core_features(os.path.join(
+
+            fm=FLAMAFeatureModel(os.path.join(
             MODEL_FOLDER, uploaded_model.filename))
 
+            result = fm.core_features()
+            
             # Remove file
             os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
 
@@ -96,10 +103,11 @@ def dead_features():
             uploaded_model.save(os.path.join(
             MODEL_FOLDER, uploaded_model.filename))
 
-            # Count
-            result = find_dead_features(os.path.join(
+            fm=FLAMAFeatureModel(os.path.join(
             MODEL_FOLDER, uploaded_model.filename))
 
+            result = fm.dead_features()
+            
             # Remove file
             os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
 
@@ -122,10 +130,11 @@ def max_depth():
         uploaded_model.save(os.path.join(
             MODEL_FOLDER, uploaded_model.filename))
 
-        # Count
-        result = find_max_depth(os.path.join(
+        fm=FLAMAFeatureModel(os.path.join(
             MODEL_FOLDER, uploaded_model.filename))
 
+        result = fm.max_depth()
+        
         # Remove file
         os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
 
@@ -149,8 +158,10 @@ def atomic_sets():
             MODEL_FOLDER, uploaded_model.filename))
 
         # Count
-        result = find_atomic_sets(os.path.join(
+        fm=FLAMAFeatureModel(os.path.join(
             MODEL_FOLDER, uploaded_model.filename))
+
+        result = fm.atomic_sets()
 
         # Remove file
         os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))

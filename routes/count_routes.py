@@ -1,7 +1,6 @@
 import os
 from flask import Blueprint, request, jsonify
-from operations.count import count_valid_products, count_leafs
-
+from operations.FLAMAFeatureModel import FLAMAFeatureModel
 count_bp = Blueprint('count_bp', __name__, url_prefix='/api/v1/count')
 
 MODEL_FOLDER = './resources/models/'
@@ -19,9 +18,10 @@ def valid_products():
         uploaded_model.save(os.path.join(
             MODEL_FOLDER, uploaded_model.filename))
 
-        # Count
-        result = count_valid_products(os.path.join(
+        fm=FLAMAFeatureModel(os.path.join(
             MODEL_FOLDER, uploaded_model.filename))
+        # Count
+        result = fm.number_of_products()
 
         # Remove file
         os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
@@ -46,8 +46,10 @@ def leafs():
             MODEL_FOLDER, uploaded_model.filename))
 
         # Count
-        result = count_leafs(os.path.join(
+        fm=FLAMAFeatureModel(os.path.join(
             MODEL_FOLDER, uploaded_model.filename))
+        # Count
+        result = fm.number_of_feature_leafs()
 
         # Remove file
         os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))

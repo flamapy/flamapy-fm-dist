@@ -1,6 +1,6 @@
 import os
 from flask import Blueprint, request, jsonify
-from operations.validate import model_validator, product_validator, configuration_validator
+from operations.FLAMAFeatureModel import FLAMAFeatureModel
 
 validate_bp = Blueprint('validate_bp', __name__, url_prefix='/api/v1/validate')
 
@@ -21,9 +21,11 @@ def check_model():
         uploaded_model.save(os.path.join(
             MODEL_FOLDER, uploaded_model.filename))
 
-        # Validate
-        result = model_validator(os.path.join(
+        
+        fm=FLAMAFeatureModel(os.path.join(
             MODEL_FOLDER, uploaded_model.filename))
+
+        result = fm.valid_fm()
 
         # Remove file
         os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
@@ -38,7 +40,7 @@ def check_model():
     else:
         return 'No file uploaded'
 
-
+"""
 @validate_bp.route('/product', methods=['POST'])
 def check_product():
     # Get files
@@ -106,3 +108,4 @@ def check_configuration():
     # If no file is provided
     else:
         return 'No file or configuration provided'
+"""
