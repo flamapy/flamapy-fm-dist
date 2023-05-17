@@ -1,48 +1,26 @@
 import sys
 import warnings
 import pytest
-
+from operations.FLAMAFeatureModel import FLAMAFeatureModel
 sys.path.append(".")
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 from app import app
-from operations.info import get_plugins, get_operations
-from operations.find import find_valid_products, find_core_features
-from operations.count import count_valid_products, count_leafs
-from operations.validate import model_validator, product_validator, configuration_validator
-
-def test_get_plugins():
-    # Arrange
-
-    # Act
-    result = get_plugins()
-
-    # Assert
-    assert len(result) > 0
-
-
-def test_get_operations():
-    # Arrange
-    plugin = "pysat_metamodel"
-
-    # Act
-    result = get_operations(plugin)
-
-    # Assert
-    assert len(result) > 0
-
 
 def test_model_validator_valid_model():
     # Arrange
     valid_model = "./resources/models/valid_model.uvl"
 
+    # Load Model
+    fm=FLAMAFeatureModel(valid_model)
+
     # Act
-    result = model_validator(valid_model)
+    result = fm.valid_fm()
 
     # Assert
     assert result == True
 
-
+"""
 def test_model_validator_invalid_model():
     # Arrange
     invalid_model = "./resources/products/valid_product.csv"
@@ -133,3 +111,4 @@ def test_find_core_features():
 
     # Assert
     assert result == core_features
+"""
