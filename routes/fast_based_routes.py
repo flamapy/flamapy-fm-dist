@@ -2,10 +2,9 @@ import os
 from flask import Blueprint, request, jsonify
 from operations.FLAMAFeatureModel import FLAMAFeatureModel
 
-find_bp = Blueprint('find_bp', __name__, url_prefix='/api/v1/find')
+fast_bp = Blueprint('find_bp', __name__, url_prefix='/api/v1/find')
 
 MODEL_FOLDER = './resources/models/'
-
 
 @find_bp.route('/leaf-features', methods=['POST'])
 def leaf_features():

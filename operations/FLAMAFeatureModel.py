@@ -34,24 +34,6 @@ class FLAMAFeatureModel():
     def _transform_to_sat(self):
         if self.sat_model == None:
             self.sat_model=self.dm.use_transformation_m2m(self.fm_model,"pysat")
-            
-    """
-    Now in this section we introduce all the operations that do not need a solver to be executed
-    """
-    def max_depth(self):
-        """ 
-        This operation is used to find the max depth of the tree in a model:
-        It returns the max depth of the tree. 
-        If the model does not follow the UVL specification, an 
-        exception is raised and the operation returns False.
-        """
-
-        # Try to use the Find operation, which returns the max depth of the tree
-        try:
-            return self.dm.use_operation(self.fm_model,'FMMaxDepthTree').execute()
-        except:
-            return False
-
 
     def atomic_sets(self):
         """ 
@@ -63,7 +45,7 @@ class FLAMAFeatureModel():
 
         # Try to use the Find operation, which returns the atomic sets if they are found
         try:
-            atomic_sets = self.dm.use_operation(self.fm_model,'AtomicSets').execute()
+            atomic_sets = self.dm.use_operation(self.fm_model,'FMAtomicSets').get_result()
             result = []
             for atomic_set in atomic_sets:
                 partial_set = []
@@ -73,6 +55,75 @@ class FLAMAFeatureModel():
             return result
         except:
             return False
+        
+    def average_branching_factor(self):
+        """ 
+        FMAverageBranchingFactor
+        """
+
+        # Try to use the Find operation, which returns the atomic sets if they are found
+        try:
+            result = self.dm.use_operation(self.fm_model,'FMAverageBranchingFactor').get_result()
+            return result
+        except:
+            return False
+        
+    def core_features(self):
+        """ 
+        FMCoreFeatures
+        """
+
+        # Try to use the Find operation, which returns the atomic sets if they are found
+        try:
+            features = self.dm.use_operation(self.fm_model,'FMCoreFeatures').get_result()
+            core_features = []
+            for feature in features:
+                core_features.append(feature.name)
+            return core_features
+        except:
+            return False
+        
+    def count_leafs(self):
+        """ 
+        FMCountLeafs
+        """
+
+        # Try to use the Find operation, which returns the atomic sets if they are found
+        try:
+            result = self.dm.use_operation(self.fm_model,'FMCountLeafs').get_result()
+            return result
+        except:
+            return False
+        
+    def estimated_number_of_products(self):
+        """ 
+        FMEstimatedProductsNumber
+        """
+
+        # Try to use the Find operation, which returns the atomic sets if they are found
+        try:
+            result = self.dm.use_operation(self.fm_model,'FMEstimatedProductsNumber').get_result()
+            return result
+        except:
+            return False
+
+    def feature_ancestors(self,feature_name:str):
+        ''' 
+        FMFeatureAncestors. This operation might have an error in the implementation
+        '''
+        # Try to use the Find operation, which returns the atomic sets if they are found
+        try:
+            operation = self.dm.get_operation(self.fm_model,'FMFeatureAncestors')
+            operation.set_feature(self.fm_model.get_feature_by_name(feature_name))
+            operation.execute(self.fm_model)
+            flama_result = operation.get_result()
+            result = []
+            for res in flama_result:
+                result.append(res.name)
+            return result
+        except:
+            return False  
+
 
     def leaf_features(self):
         """ 
@@ -89,7 +140,7 @@ class FLAMAFeatureModel():
 
         # Try to use the operation, which returns the leaf features if they are found
         try:
-            features = self.dm.use_operation(self.fm_model,'FMLeafFeatures').execute()
+            features = self.dm.use_operation(self.fm_model,'FMLeafFeatures').get_result()
             leaf_features = []
             for feature in features:
                 leaf_features.append(feature.name)
@@ -97,164 +148,17 @@ class FLAMAFeatureModel():
         except:
             return False
 
-    """
-    Now in this section we introduce all the operations that do need a solver to be executed
-    """
-    def products(self):
+    def max_depth(self):
         """ 
-        This operation is used to find products in a model:
-        It returns the product if it is found in the model. 
-        If the model does not follow the UVL specification, an 
-        exception is raised and the operation returns False.
-        
-        This operation requires the model to be translated to sat, 
-        so we check if thats done
-        """
-      
-        # Try to use the operation, which returns the product if it is found
-        try:
-            self._transform_to_sat()
-            return self.dm.use_operation('Products', self.sat_model).execute()
-        except:
-            return False
-
-
-    def core_features(self):
-        """ 
-        This operation is used to find the core features in a model:
-        It returns the core if it is found in the model. 
-        If the model does not follow the UVL specification, an 
-        exception is raised and the operation returns False.
-        
-        This operation requires the model to be translated to sat, 
-        so we check if thats done
-        """
-
-        # Try to use the Find operation, which returns the core if it is found
-        try:
-            self._transform_to_sat()
-            features = self.dm.use_operation('CoreFeatures', self.sat_model).execute()
-            core_features = []
-            for feature in features:
-                core_features.append(feature.name)
-            return core_features
-        except:
-            return False
-
-    def dead_features(self,model):
-        """ 
-        This operation is used to find the dead features in a model:
-        It returns the dead if it is found in the model. 
+        This operation is used to find the max depth of the tree in a model:
+        It returns the max depth of the tree. 
         If the model does not follow the UVL specification, an 
         exception is raised and the operation returns False.
         """
 
-        # Try to use the Find operation, which returns the dead if it is found
+        # Try to use the Find operation, which returns the max depth of the tree
         try:
-            self._transform_to_sat()
-            features = self.dm.use_operation('DeadFeatures', self.sat_model).execute()
-            dead_features = []
-            for feature in features:
-                dead_features.append(feature.name)
-            return dead_features
-        except Exception as e:
-            return False
-
-    def number_of_products(self):
-        """ 
-        This operation is used to count the number of products in a model:
-        It returns the number of products in the model. 
-        If the model does not follow the UVL specification, an 
-        exception is raised and the operation returns False.
-        """
-
-        # Try to use the Products operation, which returns a list of products
-        # TODO This operation is more officient in BDD, analyze if is worth to include its use
-        try:
-            self._transform_to_sat()
-            return self.dm.use_operation(self.sat_model,'ProductsNumber').execute()
+            return self.dm.use_operation(self.fm_model,'FMMaxDepthTree').get_result()
         except:
             return False
 
-
-    def valid_fm(self):
-        """ 
-        This operation is used to validate a model:
-        It returns True if the model is valid, False otherwise. 
-        If the model does not follow the UVL specification, an 
-        exception is raised and the operation returns False.
-        """
-        # Try to use the Valid operation, which returns True if the model is valid
-
-        try:
-            self._transform_to_sat()
-            return self.dm.use_operation(self.sat_model,'Valid').execute()
-        except:
-            return False
-    '''
-    def valid_product(model, product):
-        """
-        This operation is used to validate a product:
-        It returns True if the product is valid, False otherwise.
-        If the model does not follow the UVL specification, an
-        exception is raised and the operation returns False.
-        """
-
-        dm = DiscoverMetamodels()
-
-        # Change the file extension of product.csv to csvconf
-        product_csvconf = product.replace('.csv', '.csvconf')
-
-        # Save the configuration file with new extension
-        with open(product_csvconf, 'w', newline='') as csvfile:
-            csv_writer = csv.writer(csvfile)
-            with open(product, newline='') as original_csvfile:
-                csv_reader = csv.reader(original_csvfile)
-                for row in csv_reader:
-                    csv_writer.writerow(row)
-
-        # Try to use the Valid operation, which returns True if the configuration is valid
-        try:
-            result = dm.use_operation_from_file(
-                'ValidProduct', model, configuration_file=product_csvconf)
-            # delete the csvconf file
-            os.remove(product_csvconf)
-            return result
-        except:
-            # delete the csvconf file
-            os.remove(product_csvconf)
-            return False
-
-
-    def valid_configuration(model, configuration):
-        """
-        This operation is used to validate a configuration:
-        It returns True if the configuration is valid, False otherwise.
-        If the model does not follow the UVL specification, an
-        exception is raised and the operation returns False.
-        """
-        dm = DiscoverMetamodels()
-
-        # Change the file extension of configuration to csvconf
-        configuration_csvconf = configuration.replace('.csv', '.csvconf')
-
-        # Save the configuration file with new extension
-        with open(configuration_csvconf, 'w', newline='') as csvfile:
-            csv_writer = csv.writer(csvfile)
-            with open(configuration, newline='') as original_csvfile:
-                csv_reader = csv.reader(original_csvfile)
-                for row in csv_reader:
-                    csv_writer.writerow(row)
-
-        # Try to use the Valid operation, which returns True if the configuration is valid
-        try:
-            result = dm.use_operation_from_file(
-                'ValidConfiguration', model, configuration_file=configuration_csvconf)
-            # delete the csvconf file
-            os.remove(configuration_csvconf)
-            return result
-        except:
-            # delete the csvconf file
-            os.remove(configuration_csvconf)
-            return False
-    '''

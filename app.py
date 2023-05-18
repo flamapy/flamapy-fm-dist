@@ -5,8 +5,8 @@ from flask_cors import CORS
 # Importing routes
 #from routes.info_routes import info_bp
 from routes.validate_routes import validate_bp
-from routes.count_routes import count_bp
-from routes.find_routes import find_bp
+from routes.solver_based_routes import count_bp
+from routes.fast_based_routes import find_bp
 #from routes.recommender_routes import recommender_bp
 
 # Creating the app and configuring it
