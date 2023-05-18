@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from flask_swagger_ui import get_swaggerui_blueprint
+from flask_cors import CORS
 
 # Importing routes
 #from routes.info_routes import info_bp
@@ -10,6 +11,7 @@ from routes.find_routes import find_bp
 
 # Creating the app and configuring it
 app = Flask(__name__)
+CORS(app)
 app.config['API_BASE_URL'] = '/api/v1'
 
 # Swagger UI

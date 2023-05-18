@@ -1,9 +1,10 @@
 from flamapy.core.discover import DiscoverMetamodels
 from flamapy.metamodels.fm_metamodel.models import FeatureModel
+from typing import Optional
 
 class FLAMAFeatureModel():
 
-    def __init__(self, modelPath:str, configurationPath:str):
+    def __init__(self, modelPath:str, configurationPath:Optional[str]=None):
         """
         This is the path in the filesystem where the model is located. 
         Any model in UVL, FaMaXML or FeatureIDE format are accepted
@@ -34,6 +35,45 @@ class FLAMAFeatureModel():
         if self.sat_model == None:
             self.sat_model=self.dm.use_transformation_m2m(self.fm_model,"pysat")
             
+    """
+    Now in this section we introduce all the operations that do not need a solver to be executed
+    """
+    def max_depth(self):
+        """ 
+        This operation is used to find the max depth of the tree in a model:
+        It returns the max depth of the tree. 
+        If the model does not follow the UVL specification, an 
+        exception is raised and the operation returns False.
+        """
+
+        # Try to use the Find operation, which returns the max depth of the tree
+        try:
+            return self.dm.use_operation(self.fm_model,'FMMaxDepthTree').execute()
+        except:
+            return False
+
+
+    def atomic_sets(self):
+        """ 
+        This operation is used to find the atomic sets in a model:
+        It returns the atomic sets if they are found in the model. 
+        If the model does not follow the UVL specification, an 
+        exception is raised and the operation returns False.
+        """
+
+        # Try to use the Find operation, which returns the atomic sets if they are found
+        try:
+            atomic_sets = self.dm.use_operation(self.fm_model,'AtomicSets').execute()
+            result = []
+            for atomic_set in atomic_sets:
+                partial_set = []
+                for feature in atomic_set:
+                    partial_set.append(feature.name)
+                result.append(partial_set)
+            return result
+        except:
+            return False
+
     def leaf_features(self):
         """ 
         This operation is used to find leaf features in a model:
@@ -49,7 +89,7 @@ class FLAMAFeatureModel():
 
         # Try to use the operation, which returns the leaf features if they are found
         try:
-            features = self.dm.use_operation(self.fm_model,'FMLeafFeatures')
+            features = self.dm.use_operation(self.fm_model,'FMLeafFeatures').execute()
             leaf_features = []
             for feature in features:
                 leaf_features.append(feature.name)
@@ -57,8 +97,10 @@ class FLAMAFeatureModel():
         except:
             return False
 
-
-    def valid_products(self):
+    """
+    Now in this section we introduce all the operations that do need a solver to be executed
+    """
+    def products(self):
         """ 
         This operation is used to find products in a model:
         It returns the product if it is found in the model. 
@@ -68,12 +110,11 @@ class FLAMAFeatureModel():
         This operation requires the model to be translated to sat, 
         so we check if thats done
         """
-
-        
+      
         # Try to use the operation, which returns the product if it is found
         try:
             self._transform_to_sat()
-            return self.dm.use_operation('Products', self.sat_model)
+            return self.dm.use_operation('Products', self.sat_model).execute()
         except:
             return False
 
@@ -89,18 +130,16 @@ class FLAMAFeatureModel():
         so we check if thats done
         """
 
-
         # Try to use the Find operation, which returns the core if it is found
         try:
             self._transform_to_sat()
-            features = self.dm.use_operation('CoreFeatures', self.sat_model)
+            features = self.dm.use_operation('CoreFeatures', self.sat_model).execute()
             core_features = []
             for feature in features:
                 core_features.append(feature.name)
             return core_features
         except:
             return False
-
 
     def dead_features(self,model):
         """ 
@@ -113,7 +152,7 @@ class FLAMAFeatureModel():
         # Try to use the Find operation, which returns the dead if it is found
         try:
             self._transform_to_sat()
-            features = self.dm.use_operation('DeadFeatures', self.sat_model)
+            features = self.dm.use_operation('DeadFeatures', self.sat_model).execute()
             dead_features = []
             for feature in features:
                 dead_features.append(feature.name)
@@ -121,46 +160,7 @@ class FLAMAFeatureModel():
         except Exception as e:
             return False
 
-
-    def max_depth(self):
-        """ 
-        This operation is used to find the max depth of the tree in a model:
-        It returns the max depth of the tree. 
-        If the model does not follow the UVL specification, an 
-        exception is raised and the operation returns False.
-        """
-
-        # Try to use the Find operation, which returns the max depth of the tree
-        try:
-            return self.dm.use_operation(self.fm_model,'FMMaxDepthTree')
-        except:
-            return False
-
-
-    def atomic_sets(self):
-        """ 
-        This operation is used to find the atomic sets in a model:
-        It returns the atomic sets if they are found in the model. 
-        If the model does not follow the UVL specification, an 
-        exception is raised and the operation returns False.
-        """
-
-        # Try to use the Find operation, which returns the atomic sets if they are found
-        try:
-            atomic_sets = self.dm.use_operation(self.fm_model,'AtomicSets')
-            result = []
-            for atomic_set in atomic_sets:
-                partial_set = []
-                for feature in atomic_set:
-                    partial_set.append(feature.name)
-                result.append(partial_set)
-            return result
-        except:
-            return False
-
-
-
-    def number_of_products(self,model):
+    def number_of_products(self):
         """ 
         This operation is used to count the number of products in a model:
         It returns the number of products in the model. 
@@ -172,22 +172,7 @@ class FLAMAFeatureModel():
         # TODO This operation is more officient in BDD, analyze if is worth to include its use
         try:
             self._transform_to_sat()
-            return self.dm.use_operation(self.sat_model,'ProductsNumber')
-        except:
-            return False
-
-
-    def number_of_feature_leafs(self):
-        """ 
-        This operation is used to count the number of leafs in a model:
-        It returns the number of leafs in the model. 
-        If the model does not follow the UVL specification, an 
-        exception is raised and the operation returns False.
-        """
-
-        # Try to use the Leafs operation, which returns a list of leafs
-        try:
-            return self.dm.use_operation(self.fm_model,'CountLeafs')
+            return self.dm.use_operation(self.sat_model,'ProductsNumber').execute()
         except:
             return False
 
@@ -203,7 +188,7 @@ class FLAMAFeatureModel():
 
         try:
             self._transform_to_sat()
-            return self.dm.use_operation(self.sat_model,'Valid')
+            return self.dm.use_operation(self.sat_model,'Valid').execute()
         except:
             return False
     '''

@@ -4,8 +4,7 @@ info:
   description: FLAMAPY API, a Python-based AAFM API for feature models analysis.
   version: "1.0"
 servers:
-  - url: https://flamapy-api.onrender.com/
-  - url: http://localhost:5000/
+  - url: http://localhost:8000/
 paths:
   /:
     get:

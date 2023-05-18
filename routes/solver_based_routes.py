@@ -1,6 +1,7 @@
 import os
 from flask import Blueprint, request, jsonify
 from operations.FLAMAFeatureModel import FLAMAFeatureModel
+
 count_bp = Blueprint('count_bp', __name__, url_prefix='/api/v1/count')
 
 MODEL_FOLDER = './resources/models/'
