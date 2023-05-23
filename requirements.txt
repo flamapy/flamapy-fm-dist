@@ -4,6 +4,8 @@ gunicorn
 flamapy
 flamapy-fm
 flamapy-sat
-flasgger
 flask-swagger-ui
+flask-restplus
 pytest
+flask_cors
+flasgger

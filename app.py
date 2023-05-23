@@ -1,29 +1,22 @@
-from flask import Flask, jsonify
-from flask_swagger_ui import get_swaggerui_blueprint
+from flask import Flask
 from flask_cors import CORS
+from flasgger import Swagger
 
 # Importing routes
-#from routes.info_routes import info_bp
 from routes.operations_routes import operations_bp
 
-# Creating the app and configuring it
+# Creating the app and configuring the cors
 app = Flask(__name__)
 CORS(app)
-app.config['API_BASE_URL'] = '/api/v1'
+app.config['API_BASE_URL'] = '/api/v2'
 
-# Swagger UI
-SWAGGER_URL = '/docs'
-API_URL = '/static/swagger.yml'
-SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
-    SWAGGER_URL,
-    API_URL,
-    config={
-        'app_name': "FLAMAPY API - V1"
-    }
-)
+#Now we are configuring the self generation of swagger by means of flasgger
+config = {
+     "specs_route": "/docs/"
+}
+swag = Swagger(app,config=config,merge=True)
 
 # Adding blueprints
-app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 app.register_blueprint(operations_bp)
 
 @app.route("/", methods=['GET'])
