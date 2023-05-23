@@ -4,10 +4,7 @@ from flask_cors import CORS
 
 # Importing routes
 #from routes.info_routes import info_bp
-from routes.validate_routes import validate_bp
-from routes.solver_based_routes import count_bp
-from routes.fast_based_routes import find_bp
-#from routes.recommender_routes import recommender_bp
+from routes.operations_routes import operations_bp
 
 # Creating the app and configuring it
 app = Flask(__name__)
@@ -27,10 +24,7 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 
 # Adding blueprints
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
-app.register_blueprint(validate_bp)
-app.register_blueprint(count_bp)
-#app.register_blueprint(find_bp)
-#app.register_blueprint(recommender_bp)
+app.register_blueprint(operations_bp)
 
 @app.route("/", methods=['GET'])
 def home():

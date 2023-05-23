@@ -2,11 +2,11 @@ import os
 from flask import Blueprint, request, jsonify
 from operations.FLAMAFeatureModel import FLAMAFeatureModel
 
-fast_bp = Blueprint('find_bp', __name__, url_prefix='/api/v1/find')
+operations_bp = Blueprint('operations_bp', __name__, url_prefix='/api/v1/operations')
 
 MODEL_FOLDER = './resources/models/'
 
-@find_bp.route('/leaf-features', methods=['POST'])
+@operations_bp.route('/leaf-features', methods=['POST'])
 def leaf_features():
     # Get files
       uploaded_model = request.files['model']
@@ -34,7 +34,7 @@ def leaf_features():
             else:
                   return jsonify(error='No valid products found'), 404
 
-@find_bp.route('/valid-products', methods=['POST'])
+@operations_bp.route('/valid-products', methods=['POST'])
 def valid_products():
       # Get files
       uploaded_model = request.files['model']
@@ -62,7 +62,7 @@ def valid_products():
                   return jsonify(error='No valid products found'), 404
 
 
-@find_bp.route('/core-features', methods=['POST'])
+@operations_bp.route('/core-features', methods=['POST'])
 def core_features():
       # Get files
       uploaded_model = request.files['model']
@@ -90,7 +90,7 @@ def core_features():
                   return jsonify(error='No core features found'), 404
 
 
-@find_bp.route('/dead-features', methods=['POST'])
+@operations_bp.route('/dead-features', methods=['POST'])
 def dead_features():
       # Get files
       uploaded_model = request.files['model']
@@ -117,7 +117,7 @@ def dead_features():
                   return jsonify(result), 404
 
 
-@find_bp.route('/max-depth', methods=['POST'])
+@operations_bp.route('/max-depth', methods=['POST'])
 def max_depth():
     # Get files
     uploaded_model = request.files['model']
@@ -144,7 +144,7 @@ def max_depth():
             return jsonify(error='No max depth found'), 404
 
 
-@find_bp.route('/atomic-sets', methods=['POST'])
+@operations_bp.route('/atomic-sets', methods=['POST'])
 def atomic_sets():
     # Get files
     uploaded_model = request.files['model']
