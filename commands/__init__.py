@@ -4,6 +4,9 @@ import fire
 from operations.FLAMAFeatureModel import FLAMAFeatureModel
 
 class FLAMACommandLine():
+    """
+    This class exists only to personalize the command line interface.
+    """
     def __init__(self, modelPath:str):
         self.fm=FLAMAFeatureModel(modelPath)
 
@@ -30,6 +33,36 @@ class FLAMACommandLine():
     
     def max_depth(self):
         return self.fm.max_depth()
+    
+    def commonality(self,configurationPath:str):
+        return self.fm.commonality(configurationPath)
+    
+    def dead_features(self):
+        return self.fm.dead_features()
+    
+    def error_detection(self):
+        return self.fm.error_detection()
+    
+    def false_optional_features(self):
+        return self.fm.false_optional_features()
+    
+    def filter(self,configurationPath:str):
+        return self.fm.filter(configurationPath)
+    
+    def products_number(self):
+        return self.fm.products_number()
+    
+    def products(self):
+        return self.fm.products()
+    
+    def valid_configuration(self,configurationPath:str):
+        return self.fm.valid_configuration(configurationPath)
+    
+    def valid_product(self,configurationPath:str):
+        return self.fm.valid_product(configurationPath)
+    
+    def valid(self):
+        return self.fm.valid()
 
 def flama_fm() -> None:
     fire.Fire(FLAMACommandLine)
