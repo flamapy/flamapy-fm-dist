@@ -159,7 +159,7 @@ class FLAMAFeatureModel():
         except:
             return False
     """
-    The methods above rely on sat to be called.
+    The methods above rely on sat to be executed.
     """
     def commonality(self, configurationPath:str):
         """
@@ -169,7 +169,13 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            return self.dm.use_operation(self.sat_model,'FMCommonality').get_result()
+            configuration = self.dm.use_transformation_t2m(configurationPath,'csvconf')
+    
+            operation = self.dm.get_operation(self.fm_model,'FMCommonality')
+            operation.set_configuration_file(configuration)
+            operation.execute(self.sat_model)
+            return operation.get_result()
+
         except:
             return False
 
@@ -242,7 +248,7 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            configuration = self.dm.__transform_to_model_from_file(configurationPath)
+            configuration = self.dm.use_transformation_t2m(configurationPath,'csvconf')
 
             operation = self.dm.get_operation(self.fm_model,'Filter')
             operation.set_configuration_file(configuration)
@@ -285,7 +291,7 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            configuration = self.dm.__transform_to_model_from_file(configurationPath)
+            configuration = self.dm.use_transformation_t2m(configurationPath,'csvconf')
 
             operation = self.dm.get_operation(self.fm_model,'ValidConfiguration')
             operation.set_configuration_file(configuration)
@@ -302,8 +308,7 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            configuration = self.dm.__transform_to_model_from_file(configurationPath)
-
+            configuration = self.dm.use_transformation_t2m(configurationPath,'csvconf')
             operation = self.dm.get_operation(self.fm_model,'ValidProduct')
             operation.set_configuration_file(configuration)
             operation.execute(self.sat_model)
