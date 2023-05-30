@@ -1,7 +1,7 @@
+#!/usr/bin/python
+
 import fire
 from operations.FLAMAFeatureModel import FLAMAFeatureModel
-
-from typing import Optional
 
 class FLAMACommandLine():
     def __init__(self, modelPath:str):
@@ -30,5 +30,6 @@ class FLAMACommandLine():
     
     def max_depth(self):
         return self.fm.max_depth()
-if __name__ == "__main__":
+
+def flama_fm() -> None:
     fire.Fire(FLAMACommandLine)
