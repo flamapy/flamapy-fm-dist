@@ -188,11 +188,8 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            features = self.dm.use_operation(self.sat_model,'FMCoreFeatures').get_result()
-            core_features = []
-            for feature in features:
-                core_features.append(feature.name)
-            return core_features
+            features = self.dm.use_operation(self.sat_model,'Glucose3CoreFeatures').get_result()
+            return features
         except:
             return False
         

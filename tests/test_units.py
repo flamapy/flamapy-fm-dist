@@ -4,8 +4,6 @@ import pytest
 from operations.FLAMAFeatureModel import FLAMAFeatureModel
 sys.path.append(".")
 
-#from app import app
-
 VALID_MODEL = "./resources/models/valid_model.uvl"
 NON_VALID_MODEL = "./resources/models/non_valid_model.uvl"
 
