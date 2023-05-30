@@ -58,7 +58,11 @@ class FLAMAFeatureModel():
         
     def average_branching_factor(self):
         """ 
-        FMAverageBranchingFactor
+        This refers to the average number of child features that a parent feature has in a 
+        feature model. It's calculated by dividing the total number of child features by the 
+        total number of parent features. A high average branching factor indicates a complex 
+        feature model with many options, while a low average branching factor indicates a 
+        simpler model.
         """
 
         # Try to use the Find operation, which returns the atomic sets if they are found
@@ -68,24 +72,11 @@ class FLAMAFeatureModel():
         except:
             return False
         
-    def core_features(self):
-        """ 
-        FMCoreFeatures
-        """
-
-        # Try to use the Find operation, which returns the atomic sets if they are found
-        try:
-            features = self.dm.use_operation(self.fm_model,'FMCoreFeatures').get_result()
-            core_features = []
-            for feature in features:
-                core_features.append(feature.name)
-            return core_features
-        except:
-            return False
-        
     def count_leafs(self):
         """ 
-        FMCountLeafs
+        This operation counts the number of leaf features in a feature model. Leaf features 
+        are those that do not have any child features. They represent the most specific 
+        options in a product line.
         """
 
         # Try to use the Find operation, which returns the atomic sets if they are found
@@ -97,7 +88,11 @@ class FLAMAFeatureModel():
         
     def estimated_number_of_products(self):
         """ 
-        FMEstimatedProductsNumber
+         This is an estimate of the total number of different products that can be produced 
+         from a feature model. It's calculated by considering all possible combinations of 
+         features. This can be a simple multiplication if all features are independent, but 
+         in most cases, constraints and dependencies between features need to be taken 
+         into account.
         """
 
         # Try to use the Find operation, which returns the atomic sets if they are found
@@ -109,7 +104,9 @@ class FLAMAFeatureModel():
 
     def feature_ancestors(self,feature_name:str):
         ''' 
-        FMFeatureAncestors. This operation might have an error in the implementation
+        hese are the features that are directly or indirectly the parent of a given feature in 
+        a feature model. Ancestors of a feature are found by traversing up the feature hierarchy. 
+        This information can be useful to understand the context and dependencies of a feature.
         '''
         # Try to use the Find operation, which returns the atomic sets if they are found
         try:
@@ -161,4 +158,171 @@ class FLAMAFeatureModel():
             return self.dm.use_operation(self.fm_model,'FMMaxDepthTree').get_result()
         except:
             return False
+    """
+    The methods above rely on sat to be called.
+    """
+    def commonality(self, configurationPath:str):
+        """
+        This is a measure of how often a feature appears in the products of a 
+        product line. It's usually expressed as a percentage. A feature with 
+        100% commonality is a core feature, as it appears in all products.
+        """
+        try:
+            self._transform_to_sat()
+            return self.dm.use_operation(self.sat_model,'FMCommonality').get_result()
+        except:
+            return False
+
+    def core_features(self):
+        """
+        These are the features that are present in all products of a product line. In a feature model, 
+        they are the features that are mandatory and not optional. Core features define the commonality 
+        among all products in a product line. This call requires sat to be called, however, there is 
+        an implementation within flama that does not requires sat. please use the framework in case of needing it. 
+        """
+        try:
+            self._transform_to_sat()
+            features = self.dm.use_operation(self.sat_model,'FMCoreFeatures').get_result()
+            core_features = []
+            for feature in features:
+                core_features.append(feature.name)
+            return core_features
+        except:
+            return False
+        
+    def dead_features(self):
+        """
+        These are features that, due to the constraints and dependencies in the 
+        feature model, cannot be included in any valid product. Dead features are usually 
+        a sign of an error in the feature model.
+        """
+        try:
+            self._transform_to_sat()
+            features = self.dm.use_operation(self.sat_model,'FMDeadFeatures').get_result()
+            dead_features = []
+            for feature in features:
+                dead_features.append(feature.name)
+            return dead_features
+        except:
+            return False
+
+    def error_detection(self):
+        """
+        This refers to the process of identifying and locating errors in a feature model. 
+        Errors can include things like dead features, false optional features, or 
+        contradictions in the constraints.
+        """
+        try:
+            self._transform_to_sat()
+            errors = self.dm.use_operation(self.sat_model,'FMErrorDetection').get_result()
+            return errors
+        except:
+            return False
+
+    def false_optional_features(self):
+        """
+        These are features that appear to be optional in the feature model, but due to the 
+        constraints and dependencies, must be included in every valid product. Like dead features, 
+        false optional features are usually a sign of an error in the feature model.
+        """
+        try:
+            self._transform_to_sat()
+            features = self.dm.use_operation(self.sat_model,'FMFalseOptionalFeatures').get_result()
+            false_optional_features = []
+            for feature in features:
+                false_optional_features.append(feature.name)
+            return false_optional_features
+        except:
+            return False
+
+    def filter(self, configurationPath:str):
+        """
+        This operation selects a subset of the products of a product line based on certain criteria. 
+        For example, you might filter the products to only include those that contain a certain feature.
+        """
+        try:
+            self._transform_to_sat()
+            configuration = self.dm.__transform_to_model_from_file(configurationPath)
+
+            operation = self.dm.get_operation(self.fm_model,'Filter')
+            operation.set_configuration_file(configuration)
+            operation.execute(self.sat_model)
+            result = operation.get_result()
+            return result
+        except:
+            return False
+
+    def products_number(self):
+        """
+        This is the total number of different products that can be produced from a feature model. 
+        It's calculated by considering all possible combinations of features, taking into account 
+        the constraints and dependencies between features.
+        """
+        try:
+            self._transform_to_sat()
+            nop = self.dm.use_operation(self.sat_model,'FMProductsNumber').get_result()
+            return nop
+        except:
+            return False
+
+    def products(self):
+        """
+        These are the individual outcomes that can be produced from a feature model. Each product 
+        is a combination of features that satisfies all the constraints and dependencies in the 
+        feature model.
+        """
+        try:
+            self._transform_to_sat()
+            products = self.dm.use_operation(self.sat_model,'FMProducts').get_result()
+            return products
+        except:
+            return False
+
+    def valid_configuration(self, configurationPath:str):
+        """
+        This is a combination of features that satisfies all the constraints and dependencies
+        in the feature model. A valid configuration can be turned into a product.
+        """
+        try:
+            self._transform_to_sat()
+            configuration = self.dm.__transform_to_model_from_file(configurationPath)
+
+            operation = self.dm.get_operation(self.fm_model,'ValidConfiguration')
+            operation.set_configuration_file(configuration)
+            operation.execute(self.sat_model)
+            result = operation.get_result()
+            return result
+        except:
+            return False
+
+    def valid_product(self, configurationPath:str):
+        """
+        This is a product that is produced from a valid configuration of features. A valid 
+        product satisfies all the constraints and dependencies in the feature model.
+        """
+        try:
+            self._transform_to_sat()
+            configuration = self.dm.__transform_to_model_from_file(configurationPath)
+
+            operation = self.dm.get_operation(self.fm_model,'ValidProduct')
+            operation.set_configuration_file(configuration)
+            operation.execute(self.sat_model)
+            result = operation.get_result()
+            return result
+        except:
+            return False
+
+    def valid(self):
+        """
+        In the context of feature models, this usually refers to whether the feature model itself 
+        satisfies all the constraints and dependencies. A a valid feature model is one that 
+        does encodes at least a single valid product.
+        """
+        try:
+            self._transform_to_sat()
+            result = self.dm.use_operation(self.sat_model,'FMValid').get_result()
+            return result
+        except:
+            return False
+
 
