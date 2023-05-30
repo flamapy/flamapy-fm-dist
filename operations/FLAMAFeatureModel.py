@@ -104,7 +104,7 @@ class FLAMAFeatureModel():
 
     def feature_ancestors(self,feature_name:str):
         ''' 
-        hese are the features that are directly or indirectly the parent of a given feature in 
+        These are the features that are directly or indirectly the parent of a given feature in 
         a feature model. Ancestors of a feature are found by traversing up the feature hierarchy. 
         This information can be useful to understand the context and dependencies of a feature.
         '''
@@ -171,7 +171,7 @@ class FLAMAFeatureModel():
             self._transform_to_sat()
             configuration = self.dm.use_transformation_t2m(configurationPath,'csvconf')
     
-            operation = self.dm.get_operation(self.fm_model,'FMCommonality')
+            operation = self.dm.get_operation(self.fm_model,'Glucose3Commonality')
             operation.set_configuration_file(configuration)
             operation.execute(self.sat_model)
             return operation.get_result()
@@ -201,7 +201,7 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            features = self.dm.use_operation(self.sat_model,'FMDeadFeatures').get_result()
+            features = self.dm.use_operation(self.sat_model,'Glucose3DeadFeatures').get_result()
             dead_features = []
             for feature in features:
                 dead_features.append(feature.name)
@@ -217,7 +217,7 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            errors = self.dm.use_operation(self.sat_model,'FMErrorDetection').get_result()
+            errors = self.dm.use_operation(self.sat_model,'Glucose3ErrorDetection').get_result()
             return errors
         except:
             return False
@@ -230,7 +230,7 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            features = self.dm.use_operation(self.sat_model,'FMFalseOptionalFeatures').get_result()
+            features = self.dm.use_operation(self.sat_model,'Glucose3FalseOptionalFeatures').get_result()
             false_optional_features = []
             for feature in features:
                 false_optional_features.append(feature.name)
@@ -247,7 +247,7 @@ class FLAMAFeatureModel():
             self._transform_to_sat()
             configuration = self.dm.use_transformation_t2m(configurationPath,'csvconf')
 
-            operation = self.dm.get_operation(self.fm_model,'Filter')
+            operation = self.dm.get_operation(self.fm_model,'Glucose3Filter')
             operation.set_configuration_file(configuration)
             operation.execute(self.sat_model)
             result = operation.get_result()
@@ -263,7 +263,7 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            nop = self.dm.use_operation(self.sat_model,'FMProductsNumber').get_result()
+            nop = self.dm.use_operation(self.sat_model,'Glucose3ProductsNumber').get_result()
             return nop
         except:
             return False
@@ -276,7 +276,7 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            products = self.dm.use_operation(self.sat_model,'FMProducts').get_result()
+            products = self.dm.use_operation(self.sat_model,'Glucose3Products').get_result()
             return products
         except:
             return False
@@ -290,7 +290,7 @@ class FLAMAFeatureModel():
             self._transform_to_sat()
             configuration = self.dm.use_transformation_t2m(configurationPath,'csvconf')
 
-            operation = self.dm.get_operation(self.fm_model,'ValidConfiguration')
+            operation = self.dm.get_operation(self.fm_model,'Glucose3ValidConfiguration')
             operation.set_configuration_file(configuration)
             operation.execute(self.sat_model)
             result = operation.get_result()
@@ -306,7 +306,7 @@ class FLAMAFeatureModel():
         try:
             self._transform_to_sat()
             configuration = self.dm.use_transformation_t2m(configurationPath,'csvconf')
-            operation = self.dm.get_operation(self.fm_model,'ValidProduct')
+            operation = self.dm.get_operation(self.fm_model,'Glucose3ValidProduct')
             operation.set_configuration_file(configuration)
             operation.execute(self.sat_model)
             result = operation.get_result()
@@ -322,7 +322,7 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            result = self.dm.use_operation(self.sat_model,'FMValid').get_result()
+            result = self.dm.use_operation(self.sat_model,'Glucose3Valid').get_result()
             return result
         except:
             return False
