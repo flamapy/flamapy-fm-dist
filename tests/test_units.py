@@ -7,6 +7,7 @@ sys.path.append(".")
 VALID_MODEL = "./resources/models/valid_model.uvl"
 NON_VALID_MODEL = "./resources/models/non_valid_model.uvl"
 
+VALID_CONFIG = "./resources/configs/valid_config.uvl"
 def test_atomic_sets():
     # Prepare
     flamafm=FLAMAFeatureModel(VALID_MODEL)
@@ -98,3 +99,103 @@ def test_maxdep():
 
     # Assert
     assert result == 4
+
+def test_commonality():
+    # Prepare
+    flamafm=FLAMAFeatureModel(VALID_MODEL)
+    
+    # Act
+    result = flamafm.commonality("eCommerce")
+
+    # Assert
+    assert result == 0.0
+
+def test_dead_features():
+    # Prepare
+    flamafm=FLAMAFeatureModel(VALID_MODEL)
+    
+    # Act
+    result = flamafm.dead_features()
+
+    # Assert
+    assert sorted(result) == sorted([])
+ 
+def test_error_detection():
+    # Prepare
+    flamafm=FLAMAFeatureModel(VALID_MODEL)
+    
+    # Act
+    result = flamafm.error_detection()
+
+    # Assert
+    assert result == []
+
+def test_false_optional_features():
+    # Prepare
+    flamafm=FLAMAFeatureModel(VALID_MODEL)
+    
+    # Act
+    result = flamafm.false_optional_features()
+
+    # Assert
+    assert sorted(result) == sorted([])
+
+def test_filter():
+    # Prepare
+    flamafm=FLAMAFeatureModel(VALID_MODEL)
+    expected_result=['eCommerce', 'Server', 'Web', 'Catalog', 'Search', 'Shopping', 'Security', 'Cart', 'Payment', 'PHP', 'Storage', 'v74']
+    # Act
+    result = flamafm.filter(VALID_CONFIG)
+
+    # Assert
+    assert sorted(result) == sorted(expected_result)
+
+def test_products_number():
+    # Prepare
+    flamafm=FLAMAFeatureModel(VALID_MODEL)
+    
+    # Act
+    result = flamafm.products_number()
+
+    # Assert
+    assert result == 816
+
+def test_products():
+    # Prepare
+    flamafm=FLAMAFeatureModel(VALID_MODEL)
+    
+    # Act
+    result = flamafm.products()
+
+    # Assert
+    assert len(result) == 816
+
+def test_valid_configuration():
+    # Prepare
+    flamafm=FLAMAFeatureModel(VALID_MODEL)
+    
+    # Act
+    result = flamafm.valid_configuration(VALID_CONFIG)
+
+    # Assert
+    assert result == True
+
+def test_valid_product():
+    # Prepare
+    flamafm=FLAMAFeatureModel(VALID_MODEL)
+    
+    # Act
+    result = flamafm.valid_product(VALID_CONFIG)
+
+    # Assert
+    assert result == True
+
+def test_valid():
+    # Prepare
+    flamafm=FLAMAFeatureModel(VALID_MODEL)
+    
+    # Act
+    result = flamafm.valid()
+
+    # Assert
+    assert result == True
