@@ -34,7 +34,7 @@ class FLAMAFeatureModel():
     def _transform_to_sat(self):
         if self.sat_model == None:
             self.sat_model=self.dm.use_transformation_m2m(self.fm_model,"pysat")
-
+            
     def atomic_sets(self):
         """ 
         This operation is used to find the atomic sets in a model:
@@ -245,10 +245,10 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            configuration = self.dm.use_transformation_t2m(configurationPath,'csvconf')
+            configuration = self.dm.use_transformation_t2m(configurationPath,'configuration')
 
-            operation = self.dm.get_operation(self.fm_model,'Glucose3Filter')
-            operation.set_configuration_file(configuration)
+            operation = self.dm.get_operation(self.sat_model,'Glucose3Filter')
+            operation.set_configuration(configuration)
             operation.execute(self.sat_model)
             result = operation.get_result()
             return result
@@ -288,10 +288,10 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            configuration = self.dm.use_transformation_t2m(configurationPath,'csvconf')
+            configuration = self.dm.use_transformation_t2m(configurationPath,'configuration')
 
-            operation = self.dm.get_operation(self.fm_model,'Glucose3ValidConfiguration')
-            operation.set_configuration_file(configuration)
+            operation = self.dm.get_operation(self.sat_model,'Glucose3ValidConfiguration')
+            operation.set_configuration(configuration)
             operation.execute(self.sat_model)
             result = operation.get_result()
             return result
@@ -305,9 +305,9 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            configuration = self.dm.use_transformation_t2m(configurationPath,'csvconf')
-            operation = self.dm.get_operation(self.fm_model,'Glucose3ValidProduct')
-            operation.set_configuration_file(configuration)
+            configuration = self.dm.use_transformation_t2m(configurationPath,'configuration')
+            operation = self.dm.get_operation(self.sat_model,'Glucose3ValidProduct')
+            operation.set_configuration(configuration)
             operation.execute(self.sat_model)
             result = operation.get_result()
             return result

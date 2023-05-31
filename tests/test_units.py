@@ -7,7 +7,7 @@ sys.path.append(".")
 VALID_MODEL = "./resources/models/valid_model.uvl"
 NON_VALID_MODEL = "./resources/models/non_valid_model.uvl"
 
-VALID_CONFIG = "./resources/configs/valid_config.uvl"
+VALID_CONFIG = "./resources/configurations/valid_configuration.csvconf"
 def test_atomic_sets():
     # Prepare
     flamafm=FLAMAFeatureModel(VALID_MODEL)
@@ -143,12 +143,12 @@ def test_false_optional_features():
 def test_filter():
     # Prepare
     flamafm=FLAMAFeatureModel(VALID_MODEL)
-    expected_result=['eCommerce', 'Server', 'Web', 'Catalog', 'Search', 'Shopping', 'Security', 'Cart', 'Payment', 'PHP', 'Storage', 'v74']
+
     # Act
     result = flamafm.filter(VALID_CONFIG)
 
     # Assert
-    assert sorted(result) == sorted(expected_result)
+    assert len(result) == 68
 
 def test_products_number():
     # Prepare
