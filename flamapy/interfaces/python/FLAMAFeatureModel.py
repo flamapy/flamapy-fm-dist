@@ -215,12 +215,18 @@ class FLAMAFeatureModel():
         Errors can include things like dead features, false optional features, or 
         contradictions in the constraints.
         """
-        try:
-            self._transform_to_sat()
-            errors = self.dm.use_operation(self.sat_model,'Glucose3ErrorDetection').get_result()
-            return errors
-        except:
-            return False
+        #try:
+        self._transform_to_sat()
+            #errors = self.dm.use_operation(self.sat_model,'Glucose3ErrorDetection').get_result()
+
+        operation = self.dm.get_operation(self.sat_model,'Glucose3ErrorDetection')
+        operation.feature_model=self.fm_model
+        operation.execute(self.sat_model)
+        result = operation.get_result()
+
+        return result
+        #except:
+        #    return False
 
     def false_optional_features(self):
         """
@@ -230,7 +236,12 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            features = self.dm.use_operation(self.sat_model,'Glucose3FalseOptionalFeatures').get_result()
+
+            operation = self.dm.get_operation(self.sat_model,'Glucose3FalseOptionalFeatures')
+            operation.feature_model=self.fm_model
+            operation.execute(self.sat_model)
+            features = operation.get_result()
+            
             false_optional_features = []
             for feature in features:
                 false_optional_features.append(feature.name)

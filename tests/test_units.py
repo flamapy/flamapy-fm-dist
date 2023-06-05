@@ -1,11 +1,11 @@
 import sys
 import warnings
 import pytest
-from operations.FLAMAFeatureModel import FLAMAFeatureModel
+from flamapy.interfaces.python.FLAMAFeatureModel import FLAMAFeatureModel
 sys.path.append(".")
 
 VALID_MODEL = "./resources/models/valid_model.uvl"
-NON_VALID_MODEL = "./resources/models/non_valid_model.uvl"
+NON_VALID_MODEL = "./resources/models/invalid_model.uvl"
 
 VALID_CONFIG = "./resources/configurations/valid_configuration.csvconf"
 def test_atomic_sets():
@@ -122,7 +122,7 @@ def test_dead_features():
  
 def test_error_detection():
     # Prepare
-    flamafm=FLAMAFeatureModel(VALID_MODEL)
+    flamafm=FLAMAFeatureModel(NON_VALID_MODEL)
     
     # Act
     result = flamafm.error_detection()
