@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import fire
-from operations.FLAMAFeatureModel import FLAMAFeatureModel
+from flamapy.interfaces.python.FLAMAFeatureModel import FLAMAFeatureModel
 
 class FLAMACommandLine():
     """

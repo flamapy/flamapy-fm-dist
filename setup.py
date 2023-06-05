@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 
 setuptools.setup(
-    name="flamapy_feature_model",
+    name="flamapy-fm-distribution",
     version="1.0.0",
     author="Flamapy",
     author_email="flamapy@us.es",
@@ -46,7 +46,7 @@ setuptools.setup(
     },
     entry_points={
         'console_scripts': [
-            'flamapy-cli = commands:flama_fm',
+            'flamapy-cli = flamapy.interfaces.command_line:flama_fm',
         ],
     },
 )

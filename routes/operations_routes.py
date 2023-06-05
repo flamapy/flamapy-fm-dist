@@ -1,6 +1,6 @@
 import os
 from flask import Blueprint, request, jsonify
-from operations.FLAMAFeatureModel import FLAMAFeatureModel
+from flamapy.interfaces.python.FLAMAFeatureModel import FLAMAFeatureModel
 
 operations_bp = Blueprint('operations_bp', __name__, url_prefix='/api/v1/operations')
 
