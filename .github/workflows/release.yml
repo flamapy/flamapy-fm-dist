@@ -1,4 +1,6 @@
 name: Create Release and publish pypi package
+permissions:
+  contents: write
 on:
   push:
     tags:
