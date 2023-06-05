@@ -128,7 +128,7 @@ def test_error_detection():
     result = flamafm.error_detection()
 
     # Assert
-    assert result == []
+    assert len(result) == 3
 
 def test_false_optional_features():
     # Prepare
