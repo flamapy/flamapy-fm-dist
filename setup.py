@@ -46,7 +46,7 @@ setuptools.setup(
     },
     entry_points={
         'console_scripts': [
-            'flamapy-cli = flamapy.interfaces.command_line:flama_fm',
+            'flamapy-fm-cli = flamapy.interfaces.command_line:flama_fm',
         ],
     },
 )
