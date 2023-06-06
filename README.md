@@ -2,8 +2,8 @@
 
   <a href="">[![Pytest Testing Suite](https://github.com/flamapy/flamapy-fm-dist/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/flamapy/flamapy-fm-dist/actions/workflows/tests.yml)</a>
   <a href="">[![Commits Syntax Checker](https://github.com/flamapy/flamapy-fm-dist/actions/workflows/commits.yml/badge.svg?branch=main)](https://github.com/flamapy/flamapy-fm-dist/actions/workflows/commits.yml)</a>
-  [![PyPi version](https://pypip.in/v/flamapy-fm-dist/badge.png)](https://crate.io/packages/flamapy-fm-dist/)
- [![PyPi downloads](https://pypip.in/d/flamapy-fm-dist/badge.png)](https://crate.io/packages/flamapy-fm-dist/)
+  <a href="">![PyPI](https://img.shields.io/pypi/v/flamapy-fm-dist?label=pypi%20package)
+  <a href="">![PyPI - Downloads](https://img.shields.io/pypi/dm/flamapy-fm-dist)
 </div>
 
 # 
