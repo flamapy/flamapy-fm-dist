@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="flamapy-fm-dist",
-    version="1.5.1",
+    version="1.5.2",
     author="Flamapy",
     author_email="flamapy@us.es",
     description="Flamapy feature model is a distribution of the flama framework containing all plugins required to analyze feature models. It also offers a richier API and a complete command line interface and documentation.",
