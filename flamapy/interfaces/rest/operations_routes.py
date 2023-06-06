@@ -304,7 +304,7 @@ def filter():
       200:
         description: A list of products
         examples:
-          result: [['lettuce', 'tomato', 'onion'], ['lettuce2', 'tomato2', 'onion']
+          result: [['lettuce', 'tomato', 'onion'], ['lettuce2', 'tomato2', 'onion']]
     """
     return _api_call("filter")
 
