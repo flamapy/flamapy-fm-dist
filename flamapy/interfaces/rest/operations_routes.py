@@ -233,7 +233,7 @@ def dead_features():
     """This endpoint returns the maximum depth of the feature tree.
     ---
     tags:
-      - Max depth
+      - Dead features
     parameters:
       - name: model
         in: formData
@@ -241,18 +241,18 @@ def dead_features():
         required: true
     responses:
       200:
-        description: An integer representing the deep of the tree
+        description: A list of dead features
         examples:
-          result: 5
+          result: ['lettuce', 'tomato', 'onion']
     """
     return _api_call("dead_features")
 
 @operations_bp.route('/error_detection', methods=['POST'])
 def error_detection():
-    """This endpoint returns the maximum depth of the feature tree.
+    """This endpoint returns the list of errors within a feature model.
     ---
     tags:
-      - Max depth
+      - Error detection
     parameters:
       - name: model
         in: formData
@@ -260,18 +260,18 @@ def error_detection():
         required: true
     responses:
       200:
-        description: An integer representing the deep of the tree
+        description: A list of errors
         examples:
-          result: 5
+          result: ['lettuce is a dead feature', 'tomato is a false optional']
     """
     return _api_call("error_detection")
 
 @operations_bp.route('/false_optional_features', methods=['POST'])
 def false_optional_features():
-    """This endpoint returns the maximum depth of the feature tree.
+    """This endpoint returns the false optional features within a feature model.
     ---
     tags:
-      - Max depth
+      - False optional features
     parameters:
       - name: model
         in: formData
@@ -279,18 +279,18 @@ def false_optional_features():
         required: true
     responses:
       200:
-        description: An integer representing the deep of the tree
+        description: A list of false optional features
         examples:
-          result: 5
+          result:  ['lettuce', 'tomato', 'onion']
     """
     return _api_call("false_optional_features")
 
 @operations_bp.route('/filter', methods=['POST'])
 def filter():
-    """This endpoint returns the maximum depth of the feature tree.
+    """This endpoint returns the products of a models that contains a certain feature.
     ---
     tags:
-      - Max depth
+      - Filter
     parameters:
       - name: model
         in: formData
@@ -302,18 +302,18 @@ def filter():
         required: true
     responses:
       200:
-        description: An integer representing the deep of the tree
+        description: A list of products
         examples:
-          result: 5
+          result: [['lettuce', 'tomato', 'onion'], ['lettuce2', 'tomato2', 'onion']
     """
     return _api_call("filter")
 
 @operations_bp.route('/products_number', methods=['POST'])
 def products_number():
-    """This endpoint returns the maximum depth of the feature tree.
+    """This endpoint returns the number of products within a model.
     ---
     tags:
-      - Max depth
+      - Number of products
     parameters:
       - name: model
         in: formData
@@ -321,7 +321,7 @@ def products_number():
         required: true
     responses:
       200:
-        description: An integer representing the deep of the tree
+        description: An integer representing the number of products
         examples:
           result: 5
     """
@@ -329,10 +329,10 @@ def products_number():
 
 @operations_bp.route('/products', methods=['POST'])
 def products():
-    """This endpoint returns the maximum depth of the feature tree.
+    """This endpoint returns the list of products of a model.
     ---
     tags:
-      - Max depth
+      - Products
     parameters:
       - name: model
         in: formData
@@ -340,18 +340,18 @@ def products():
         required: true
     responses:
       200:
-        description: An integer representing the deep of the tree
+        description: A list of products
         examples:
-          result: 5
+          result: [['lettuce', 'tomato', 'onion'], ['lettuce2', 'tomato2', 'onion']]
     """
     return _api_call("products")
 
 @operations_bp.route('/valid_configuration', methods=['POST'])
 def valid_configuration():
-    """This endpoint returns the maximum depth of the feature tree.
+    """This endpoint returns a boolean indicating if a partial configuration is valid.
     ---
     tags:
-      - Max depth
+      - Valid partial configuration
     parameters:
       - name: model
         in: formData
@@ -363,18 +363,18 @@ def valid_configuration():
         required: true
     responses:
       200:
-        description: An integer representing the deep of the tree
+        description: A boolean indicating if the configuration is valid
         examples:
-          result: 5
+          result: True
     """
     return _api_call("valid_configuration")
 
 @operations_bp.route('/valid_product', methods=['POST'])
 def valid_product():
-    """This endpoint returns the maximum depth of the feature tree.
+    """This endpoint returns a boolean if a fulll configuration (a.k.a product) is valid.
     ---
     tags:
-      - Max depth
+      - Valid full configuration (a.k.a. product)
     parameters:
       - name: model
         in: formData
@@ -386,18 +386,18 @@ def valid_product():
         required: true
     responses:
       200:
-        description: An integer representing the deep of the tree
+        description: A boolean indicating if the configuration is valid
         examples:
-          result: 5
+          result: True
     """
     return _api_call("valid_product")
 
 @operations_bp.route('/valid', methods=['POST'])
 def valid():
-    """This endpoint returns the maximum depth of the feature tree.
+    """This endpoint returns a boolean indicating if the model is valid.
     ---
     tags:
-      - Max depth
+      - Valid
     parameters:
       - name: model
         in: formData
@@ -405,8 +405,8 @@ def valid():
         required: true
     responses:
       200:
-        description: An integer representing the deep of the tree
+        description: A boolean indicating if the model is valid
         examples:
-          result: 5
+          result: True
     """
     return _api_call("valid")

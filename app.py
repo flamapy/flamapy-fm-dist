@@ -3,7 +3,7 @@ from flask_cors import CORS
 from flasgger import Swagger
 
 # Importing routes
-from routes.operations_routes import operations_bp
+from flamapy.interfaces.rest.operations_routes import operations_bp
 
 # Creating the app and configuring the cors
 app = Flask(__name__)
