@@ -84,7 +84,7 @@ exception is raised and the operation returns False.
 The command line of this Flama distribution is implemented using [Fire](https://github.com/google/python-fire). When you install the pip package flama-fm-dist, you will find a new command in your pc called flama-fm-dist. Simply call it and follow the instructions. 
 
 # Using the distribution REST API
-
+The easies way is to execute the following command: docker run -p 8000:8000 flamapy/flamapy-fm-dist and open localhost:8000
 <!-- GETTING STARTED -->
 ## Getting Started
 
