@@ -202,10 +202,7 @@ class FLAMAFeatureModel():
         try:
             self._transform_to_sat()
             features = self.dm.use_operation(self.sat_model,'Glucose3DeadFeatures').get_result()
-            dead_features = []
-            for feature in features:
-                dead_features.append(feature.name)
-            return dead_features
+            return features
         except:
             return False
 
@@ -223,7 +220,6 @@ class FLAMAFeatureModel():
             operation.feature_model=self.fm_model
             operation.execute(self.sat_model)
             result = operation.get_result()
-
             return result
         except:
             return False
@@ -241,11 +237,7 @@ class FLAMAFeatureModel():
             operation.feature_model=self.fm_model
             operation.execute(self.sat_model)
             features = operation.get_result()
-            
-            false_optional_features = []
-            for feature in features:
-                false_optional_features.append(feature.name)
-            return false_optional_features
+            return features
         except:
             return False
 
