@@ -84,7 +84,7 @@ exception is raised and the operation returns False.
 The command line of this Flama distribution is implemented using [Fire](https://github.com/google/python-fire). When you install the pip package flama-fm-dist, you will find a new command in your pc called flama-fm-dist. Simply call it and follow the instructions. 
 
 # Using the distribution REST API
-
+The easies way is to execute the following command: docker run -p 8000:8000 flamapy/flamapy-fm-dist and open localhost:8000
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -98,17 +98,17 @@ First, you will need to install [Docker](https://docs.docker.com/desktop/).
 
 2. If you are running Windows, run
   ```sh
-  $ cd flamapy-api
+  $ cd flamapy-dm-dist
   $ ./start-server.cmd
   ```
   
 3. If you are running Linux or MacOS, run
   ```sh
-  $ cd flamapy-api
+  $ cd flamapy-dm-dist
   $ ./start-server.sh
   ```
   
-This script will build, install and deploy the API in http://localhost:5000, you can access all the endpoints through an application like [Postman](https://www.postman.com/)
+This script will build, install and deploy the API in http://localhost:8000, you can access all the endpoints through an application like [Postman](https://www.postman.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

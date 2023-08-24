@@ -33,10 +33,11 @@ def _api_call(operation_name:str):
         os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
         
         # Return result
-        if (result):
-            return jsonify(result)
+        if (result == False):
+          return jsonify(error='Not valid result'), 404
         else:
-            return jsonify(error='Not valid result'), 404
+          return jsonify(result)
+
 
 '''
 This is the set of operations within the fm metamodel. 
@@ -304,7 +305,7 @@ def filter():
       200:
         description: A list of products
         examples:
-          result: [['lettuce', 'tomato', 'onion'], ['lettuce2', 'tomato2', 'onion']
+          result: [['lettuce', 'tomato', 'onion'], ['lettuce2', 'tomato2', 'onion']]
     """
     return _api_call("filter")
 
