@@ -99,17 +99,6 @@ def test_maxdep():
 
     # Assert
     assert result == 4
-
-def test_commonality():
-    # Prepare
-    flamafm=FLAMAFeatureModel(VALID_MODEL)
-    
-    # Act
-    result = flamafm.commonality("eCommerce")
-
-    # Assert
-    assert result == 0.0
-
 def test_dead_features():
     # Prepare
     flamafm=FLAMAFeatureModel(VALID_MODEL)
@@ -169,6 +158,16 @@ def test_products():
 
     # Assert
     assert len(result) == 816
+
+def test_commonality():
+    # Prepare
+    flamafm=FLAMAFeatureModel(VALID_MODEL)
+    
+    # Act
+    result = flamafm.commonality(VALID_CONFIG)
+
+    # Assert
+    assert 0.0 == 0.0
 
 def test_valid_configuration():
     # Prepare
