@@ -33,7 +33,7 @@ def _api_call(operation_name:str):
         os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
         
         # Return result
-        if (result == False):
+        if (result is None):
           return jsonify(error='Not valid result'), 404
         else:
           return jsonify(result)
