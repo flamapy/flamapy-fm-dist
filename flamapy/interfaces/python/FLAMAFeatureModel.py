@@ -54,7 +54,7 @@ class FLAMAFeatureModel():
                 result.append(partial_set)
             return result
         except:
-            return False
+            return None
         
     def average_branching_factor(self):
         """ 
@@ -70,7 +70,7 @@ class FLAMAFeatureModel():
             result = self.dm.use_operation(self.fm_model,'FMAverageBranchingFactor').get_result()
             return result
         except:
-            return False
+            return None
         
     def count_leafs(self):
         """ 
@@ -84,7 +84,7 @@ class FLAMAFeatureModel():
             result = self.dm.use_operation(self.fm_model,'FMCountLeafs').get_result()
             return result
         except:
-            return False
+            return None
         
     def estimated_number_of_products(self):
         """ 
@@ -100,7 +100,7 @@ class FLAMAFeatureModel():
             result = self.dm.use_operation(self.fm_model,'FMEstimatedProductsNumber').get_result()
             return result
         except:
-            return False
+            return None
 
     def feature_ancestors(self,feature_name:str):
         ''' 
@@ -119,7 +119,7 @@ class FLAMAFeatureModel():
                 result.append(res.name)
             return result
         except:
-            return False  
+            return None  
 
 
     def leaf_features(self):
@@ -143,7 +143,7 @@ class FLAMAFeatureModel():
                 leaf_features.append(feature.name)
             return leaf_features
         except:
-            return False
+            return None
 
     def max_depth(self):
         """ 
@@ -157,7 +157,7 @@ class FLAMAFeatureModel():
         try:
             return self.dm.use_operation(self.fm_model,'FMMaxDepthTree').get_result()
         except:
-            return False
+            return None
     """
     The methods above rely on sat to be executed.
     """
@@ -177,7 +177,7 @@ class FLAMAFeatureModel():
             return operation.get_result()
 
         except:
-            return False
+            return None
 
     def core_features(self):
         """
@@ -191,7 +191,7 @@ class FLAMAFeatureModel():
             features = self.dm.use_operation(self.sat_model,'Glucose3CoreFeatures').get_result()
             return features
         except:
-            return False
+            return None
         
     def dead_features(self):
         """
@@ -204,7 +204,7 @@ class FLAMAFeatureModel():
             features = self.dm.use_operation(self.sat_model,'Glucose3DeadFeatures').get_result()
             return features
         except:
-            return False
+            return None
 
     def error_detection(self):
         """
@@ -222,7 +222,7 @@ class FLAMAFeatureModel():
             result = operation.get_result()
             return result
         except:
-            return False
+            return None
 
     def false_optional_features(self):
         """
@@ -239,7 +239,7 @@ class FLAMAFeatureModel():
             features = operation.get_result()
             return features
         except:
-            return False
+            return None
 
     def filter(self, configurationPath:str):
         """
@@ -256,7 +256,7 @@ class FLAMAFeatureModel():
             result = operation.get_result()
             return result
         except:
-            return False
+            return None
 
     def products_number(self):
         """
@@ -269,7 +269,7 @@ class FLAMAFeatureModel():
             nop = self.dm.use_operation(self.sat_model,'Glucose3ProductsNumber').get_result()
             return nop
         except:
-            return False
+            return None
 
     def products(self):
         """
@@ -282,7 +282,7 @@ class FLAMAFeatureModel():
             products = self.dm.use_operation(self.sat_model,'Glucose3Products').get_result()
             return products
         except:
-            return False
+            return None
 
     def valid_configuration(self, configurationPath:str):
         """
@@ -299,7 +299,7 @@ class FLAMAFeatureModel():
             result = operation.get_result()
             return result
         except:
-            return False
+            return None
 
     def valid_product(self, configurationPath:str):
         """
@@ -315,7 +315,7 @@ class FLAMAFeatureModel():
             result = operation.get_result()
             return result
         except:
-            return False
+            return None
 
     def valid(self):
         """
@@ -328,6 +328,6 @@ class FLAMAFeatureModel():
             result = self.dm.use_operation(self.sat_model,'Glucose3Valid').get_result()
             return result
         except:
-            return False
+            return None
 
 
