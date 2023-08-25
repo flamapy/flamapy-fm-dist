@@ -32,7 +32,7 @@ def _api_call(operation_name:str):
             result= operation(request.form["configuration"])
         else:
             result= operation()
-        
+        print(result)
         # Remove file
         os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
         
@@ -226,9 +226,9 @@ def commonality():
         required: true
     responses:
       200:
-        description: An integer representing the deep of the tree
+        description: An float representing the commonality of the configuration
         examples:
-          result: 5
+          result: 5.2
     """
     
     return _api_call("commonality")
