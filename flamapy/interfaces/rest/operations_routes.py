@@ -21,7 +21,7 @@ def _api_call(operation_name:str):
             MODEL_FOLDER, uploaded_model.filename))
         
         operation =getattr(fm,operation_name)
-        print(operation_name)
+        
         if(operation_name=='feature_ancestors'):
             result= operation(request.form["feature"])
         elif(operation_name=='valid_product' or 
@@ -29,10 +29,15 @@ def _api_call(operation_name:str):
              operation_name=='filter' or 
              operation_name=="commonality"):
             
-            result= operation(request.form["configuration"])
+            configuration=request.files["configuration"]
+            configuration.save(os.path.join(
+                    MODEL_FOLDER, configuration.filename))
+            
+            result= operation(os.path.join(
+                    MODEL_FOLDER, configuration.filename))
         else:
             result= operation()
-        print(result)
+
         # Remove file
         os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
         

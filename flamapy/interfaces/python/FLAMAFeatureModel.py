@@ -286,21 +286,21 @@ class FLAMAFeatureModel():
         except:
             return None
     def commonality(self, configurationPath:str):
-            """
-            This is a measure of how often a feature appears in the products of a 
-            product line. It's usually expressed as a percentage. A feature with 
-            100% commonality is a core feature, as it appears in all products.
-            """
-            try:
-                self._transform_to_sat()
-                configuration = self.dm.use_transformation_t2m(configurationPath,'configuration')
+        """
+        This is a measure of how often a feature appears in the products of a 
+        product line. It's usually expressed as a percentage. A feature with 
+        100% commonality is a core feature, as it appears in all products.
+        """
+        try:
+            self._transform_to_sat()
+            configuration = self.dm.use_transformation_t2m(configurationPath,'configuration')
 
-                operation = self.dm.get_operation(self.sat_model,'Glucose3Commonality')
-                operation.set_configuration(configuration)
-                operation.execute(self.sat_model)
-                return operation.get_result()
-            except:
-                return None
+            operation = self.dm.get_operation(self.sat_model,'Glucose3Commonality')
+            operation.set_configuration(configuration)
+            operation.execute(self.sat_model)
+            return operation.get_result()
+        except:
+            return None
 
     def valid_product(self, configurationPath:str):
         """
