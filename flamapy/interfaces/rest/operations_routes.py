@@ -21,7 +21,7 @@ def _api_call(operation_name:str):
             MODEL_FOLDER, uploaded_model.filename))
         
         operation =getattr(fm,operation_name)
-
+        print(operation)
         if(operation_name=='feature_ancestors'):
             result= operation(request.form["feature"])
         elif(operation_name=='valid_product' or 
