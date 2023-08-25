@@ -291,7 +291,7 @@ class FLAMAFeatureModel():
             product line. It's usually expressed as a percentage. A feature with 
             100% commonality is a core feature, as it appears in all products.
             """
-            try:    
+            try:
                 self._transform_to_sat()
                 configuration = self.dm.use_transformation_t2m(configurationPath,'configuration')
 
