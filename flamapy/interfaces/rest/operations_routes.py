@@ -24,7 +24,11 @@ def _api_call(operation_name:str):
 
         if(operation_name=='feature_ancestors'):
             result= operation(request.form["feature"])
-        elif(operation_name=='valid_product' or operation_name=='valid_configuration' or operation_name=='filter' or operation_name=="commonality"):
+        elif(operation_name=='valid_product' or 
+             operation_name=='valid_configuration' or 
+             operation_name=='filter' or 
+             operation_name=="commonality"):
+            
             result= operation(request.form["configuration"])
         else:
             result= operation()
