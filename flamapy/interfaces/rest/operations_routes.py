@@ -21,14 +21,23 @@ def _api_call(operation_name:str):
             MODEL_FOLDER, uploaded_model.filename))
         
         operation =getattr(fm,operation_name)
-
+        
         if(operation_name=='feature_ancestors'):
             result= operation(request.form["feature"])
-        elif(operation_name=='valid_product' or operation_name=='valid_configuration' or operation_name=='filter'):
-            result= operation(request.form["configuration"])
+        elif(operation_name=='valid_product' or 
+             operation_name=='valid_configuration' or 
+             operation_name=='filter' or 
+             operation_name=="commonality"):
+            
+            configuration=request.files["configuration"]
+            configuration.save(os.path.join(
+                    MODEL_FOLDER, configuration.filename))
+            
+            result= operation(os.path.join(
+                    MODEL_FOLDER, configuration.filename))
         else:
             result= operation()
-        
+
         # Remove file
         os.remove(os.path.join(MODEL_FOLDER, uploaded_model.filename))
         
@@ -222,9 +231,9 @@ def commonality():
         required: true
     responses:
       200:
-        description: An integer representing the deep of the tree
+        description: An float representing the commonality of the configuration
         examples:
-          result: 5
+          result: 5.2
     """
     
     return _api_call("commonality")

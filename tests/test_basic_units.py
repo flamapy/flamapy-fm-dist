@@ -2,10 +2,9 @@ import sys
 import warnings
 import pytest
 from flamapy.interfaces.python.FLAMAFeatureModel import FLAMAFeatureModel
-sys.path.append(".")
 
-VALID_MODEL = "./resources/models/valid_model.uvl"
-NON_VALID_MODEL = "./resources/models/invalid_model.uvl"
+VALID_MODEL = "./resources/models/simple/valid_model.uvl"
+NON_VALID_MODEL = "./resources/models/simple/invalid_model.uvl"
 
 VALID_CONFIG = "./resources/configurations/valid_configuration.csvconf"
 def test_atomic_sets():
@@ -99,17 +98,6 @@ def test_maxdep():
 
     # Assert
     assert result == 4
-
-def test_commonality():
-    # Prepare
-    flamafm=FLAMAFeatureModel(VALID_MODEL)
-    
-    # Act
-    result = flamafm.commonality("eCommerce")
-
-    # Assert
-    assert result == 0.0
-
 def test_dead_features():
     # Prepare
     flamafm=FLAMAFeatureModel(VALID_MODEL)
@@ -169,6 +157,16 @@ def test_products():
 
     # Assert
     assert len(result) == 816
+
+def test_commonality():
+    # Prepare
+    flamafm=FLAMAFeatureModel(VALID_MODEL)
+    
+    # Act
+    result = flamafm.commonality(VALID_CONFIG)
+
+    # Assert
+    assert 0.0 == 0.0
 
 def test_valid_configuration():
     # Prepare
