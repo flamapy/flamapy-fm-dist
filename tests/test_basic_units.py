@@ -2,10 +2,9 @@ import sys
 import warnings
 import pytest
 from flamapy.interfaces.python.FLAMAFeatureModel import FLAMAFeatureModel
-sys.path.append(".")
 
-VALID_MODEL = "./resources/models/valid_model.uvl"
-NON_VALID_MODEL = "./resources/models/invalid_model.uvl"
+VALID_MODEL = "./resources/models/simple/valid_model.uvl"
+NON_VALID_MODEL = "./resources/models/simple/invalid_model.uvl"
 
 VALID_CONFIG = "./resources/configurations/valid_configuration.csvconf"
 def test_atomic_sets():

@@ -173,7 +173,7 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            features = self.dm.use_operation(self.sat_model,'Glucose3CoreFeatures').get_result()
+            features = self.dm.use_operation(self.sat_model,'PySATCoreFeatures').get_result()
             return features
         except:
             return None
@@ -186,7 +186,7 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            features = self.dm.use_operation(self.sat_model,'Glucose3DeadFeatures').get_result()
+            features = self.dm.use_operation(self.sat_model,'PySATDeadFeatures').get_result()
             return features
         except:
             return None
@@ -201,7 +201,7 @@ class FLAMAFeatureModel():
             self._transform_to_sat()
             #errors = self.dm.use_operation(self.sat_model,'Glucose3ErrorDetection').get_result()
 
-            operation = self.dm.get_operation(self.sat_model,'Glucose3ErrorDetection')
+            operation = self.dm.get_operation(self.sat_model,'PySATErrorDetection')
             operation.feature_model=self.fm_model
             operation.execute(self.sat_model)
             result = operation.get_result()
@@ -218,7 +218,7 @@ class FLAMAFeatureModel():
         try:
             self._transform_to_sat()
 
-            operation = self.dm.get_operation(self.sat_model,'Glucose3FalseOptionalFeatures')
+            operation = self.dm.get_operation(self.sat_model,'PySATFalseOptionalFeatures')
             operation.feature_model=self.fm_model
             operation.execute(self.sat_model)
             features = operation.get_result()
@@ -235,7 +235,7 @@ class FLAMAFeatureModel():
             self._transform_to_sat()
             configuration = self.dm.use_transformation_t2m(configurationPath,'configuration')
 
-            operation = self.dm.get_operation(self.sat_model,'Glucose3Filter')
+            operation = self.dm.get_operation(self.sat_model,'PySATFilter')
             operation.set_configuration(configuration)
             operation.execute(self.sat_model)
             result = operation.get_result()
@@ -251,7 +251,7 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            nop = self.dm.use_operation(self.sat_model,'Glucose3ProductsNumber').get_result()
+            nop = self.dm.use_operation(self.sat_model,'PySATProductsNumber').get_result()
             return nop
         except:
             return None
@@ -264,7 +264,7 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            products = self.dm.use_operation(self.sat_model,'Glucose3Products').get_result()
+            products = self.dm.use_operation(self.sat_model,'PySATProducts').get_result()
             return products
         except:
             return None
@@ -278,7 +278,7 @@ class FLAMAFeatureModel():
             self._transform_to_sat()
             configuration = self.dm.use_transformation_t2m(configurationPath,'configuration')
 
-            operation = self.dm.get_operation(self.sat_model,'Glucose3ValidConfiguration')
+            operation = self.dm.get_operation(self.sat_model,'PySATValidConfiguration')
             operation.set_configuration(configuration)
             operation.execute(self.sat_model)
             result = operation.get_result()
@@ -295,7 +295,7 @@ class FLAMAFeatureModel():
             self._transform_to_sat()
             configuration = self.dm.use_transformation_t2m(configurationPath,'configuration')
 
-            operation = self.dm.get_operation(self.sat_model,'Glucose3Commonality')
+            operation = self.dm.get_operation(self.sat_model,'PySATCommonality')
             operation.set_configuration(configuration)
             operation.execute(self.sat_model)
             return operation.get_result()
@@ -310,7 +310,7 @@ class FLAMAFeatureModel():
         try:
             self._transform_to_sat()
             configuration = self.dm.use_transformation_t2m(configurationPath,'configuration')
-            operation = self.dm.get_operation(self.sat_model,'Glucose3ValidProduct')
+            operation = self.dm.get_operation(self.sat_model,'PySATValidProduct')
             operation.set_configuration(configuration)
             operation.execute(self.sat_model)
             result = operation.get_result()
@@ -326,7 +326,7 @@ class FLAMAFeatureModel():
         """
         try:
             self._transform_to_sat()
-            result = self.dm.use_operation(self.sat_model,'Glucose3Valid').get_result()
+            result = self.dm.use_operation(self.sat_model,'PySATValid').get_result()
             return result
         except:
             return None
