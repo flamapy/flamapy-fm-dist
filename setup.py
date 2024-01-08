@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="flamapy-fm-dist",
-    version="1.6.0",
+    version="1.6.0.dev0",
     author="Flamapy",
     author_email="flamapy@us.es",
     description="Flamapy feature model is a distribution of the flama framework containing all plugins required to analyze feature models. It also offers a richier API and a complete command line interface and documentation.",
@@ -25,9 +25,9 @@ setuptools.setup(
         "wheel",
         "Flask",
         "gunicorn",
-        "flamapy",
-        "flamapy-fm",
-        "flamapy-sat",
+        "flamapy~=1.6.0.dev0",
+        "flamapy-fm~=1.6.0.dev0",
+        "flamapy-sat~=1.6.0.dev0",
         "flask-swagger-ui",
         "flask-restplus",
         "pytest",
